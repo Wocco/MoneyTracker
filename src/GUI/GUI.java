@@ -7,8 +7,11 @@ import java.awt.event.ActionListener;
 public class GUI {
     private JButton AddPeopleButton;
     private JLabel ListOfPeople;
+    private JPanel MainPanel;
 
-    public GUI() {
+
+    public GUI()
+    {
         AddPeopleButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
@@ -16,5 +19,13 @@ public class GUI {
             }
         });
     }
-    
+
+    public void app()
+    {
+        JFrame frame = new JFrame("Money tracker");
+        frame.setContentPane(new GUI().MainPanel);
+        frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
+        frame.pack();
+        frame.setVisible(true);
+    }
 }

@@ -9,6 +9,9 @@ public class GUI {
     private JLabel ListOfPeople;
     private JPanel MainPanel;
 
+    /**
+     * Actions for all the buttons
+     */
 
     public GUI()
     {
@@ -20,12 +23,16 @@ public class GUI {
         });
     }
 
+    /**
+     * Initialize the gui
+     *
+     */
     public void app()
     {
         JFrame frame = new JFrame("Money tracker");
         frame.setContentPane(new GUI().MainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.pack();
+        frame.setSize(800,800);
         frame.setVisible(true);
     }
 }

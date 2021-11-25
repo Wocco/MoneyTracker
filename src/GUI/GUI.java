@@ -18,7 +18,8 @@ public class GUI {
         AddPeopleButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null,"hello world");
+                JOptionPane.showMessageDialog(null,"Test button clicked");
+                ListOfPeople.setText("Button was clicked");
             }
         });
     }

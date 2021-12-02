@@ -24,12 +24,20 @@ public class Ticket {
         return value;
     }
 
+    public Date getPurchaseDate(){
+        return purchaseDate;
+    }
+
     public void setDescription(String description) {
         this.description = description;
     }
 
     public void setValue(int value) {
         this.value = value;
+    }
+
+    public void setPurchaseDate(Date purchaseDate){
+        this.purchaseDate = purchaseDate;
     }
 
     public boolean isSplitEvenly() {

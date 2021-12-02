@@ -8,11 +8,19 @@ public class TicketFactory {
         switch(ticketKind){
             case "AirplaneTicket":
                 return new AirplaneTicket(description, value, purchaseDate, splitEvenly);
+            case "airplaneticket":
+                return new AirplaneTicket(description, value, purchaseDate, splitEvenly);
             case "RestaurantTicket":
+                return new RestaurantTicket(description, value, purchaseDate, splitEvenly);
+            case "restaurantticket":
                 return new RestaurantTicket(description, value, purchaseDate, splitEvenly);
             case "ConcertTicket":
                 return new ConcertTicket(description, value, purchaseDate, splitEvenly);
+            case "concertticket":
+                return new ConcertTicket(description, value, purchaseDate, splitEvenly);
             case "OtherTicket":
+                return new OtherTicket(description, value, purchaseDate, splitEvenly);
+            case "otherticket":
                 return new OtherTicket(description, value, purchaseDate, splitEvenly);
             default:
                 return null;

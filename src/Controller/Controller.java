@@ -7,8 +7,6 @@ import java.util.Date;
 
 public class Controller
 {
-
-
     public Ticket createAirplaneTicket(TicketFactory ticketFactory,String description, int value, Date purchaseDate, boolean splitEvenly)
     {
         Ticket ticket = ticketFactory.makeTicket("AirplaneTicket",description,value,purchaseDate,splitEvenly);
@@ -33,7 +31,6 @@ public class Controller
         //Add the ticket to the database
         return ticket;
     }
-
     public Ticket createTaxiTicket(TicketFactory ticketFactory,String description, int value, Date purchaseDate, boolean splitEvenly)
     {
         Ticket ticket = ticketFactory.makeTicket("TaxiTicket",description,value,purchaseDate,splitEvenly);

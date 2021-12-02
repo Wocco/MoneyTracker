@@ -2,10 +2,10 @@ package Database;
 
 import Tickets.Ticket;
 
-public class Database {
+public abstract class Database {
     public Database(){
 
     }
 
-    public abstract void addTicket(Ticket ticket);
+    public abstract void addTicket(Integer hash, Ticket ticket);
 }

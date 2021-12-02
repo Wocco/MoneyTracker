@@ -3,6 +3,8 @@ package Database;
 
 import Tickets.Ticket;
 
+import java.beans.PropertyChangeListener;
+import java.beans.PropertyChangeSupport;
 import java.util.HashMap;
 
 public class TicketDB extends Database {
@@ -23,5 +25,19 @@ public class TicketDB extends Database {
     @Override
     public void addTicket(Integer hashValue, Ticket ticket){
         this.db.put(hashValue,ticket);
+        change.firePropertyChange(null,null,ticket);
+    }
+
+
+
+
+    private PropertyChangeSupport change = new PropertyChangeSupport(this);
+    public void add(PropertyChangeListener pcl){
+        change.addPropertyChangeListener(pcl);
+    }
+
+    public void remove(PropertyChangeListener pcl)
+    {
+        change.removePropertyChangeListener(pcl);
     }
 }

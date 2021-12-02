@@ -28,7 +28,7 @@ public class GUI {
         JFrame frame = new JFrame("Money tracker");
         frame.setContentPane(new GUI().MainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800,800);
+        frame.setSize(600,600);
         frame.setVisible(true);
     }
 }

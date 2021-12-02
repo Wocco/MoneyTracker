@@ -5,9 +5,10 @@ import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 
 public class GUI {
-    private JButton AddPeopleButton;
-    private JLabel ListOfPeople;
+
     private JPanel MainPanel;
+    private JTabbedPane Tabbedpane;
+    private JLabel welcomeTextField;
 
     /**
      * Actions for all the buttons
@@ -15,12 +16,7 @@ public class GUI {
 
     public GUI()
     {
-        AddPeopleButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                JOptionPane.showMessageDialog(null,"hello world");
-            }
-        });
+
     }
 
     /**

@@ -1,11 +1,17 @@
 package Tickets;
 
+import java.util.Date;
+
 public class Ticket {
     private String description;
+    private Date purchaseDate;
+    private int hashValue;
     private int value;
     private boolean splitEvenly;
-    public Ticket(String description, int value, boolean splitEvenly){
+    public Ticket(String description, int value, Date purchaseDate, boolean splitEvenly){
         this.description = description;
+        this.hashValue = description.hashCode();
+        this.purchaseDate = purchaseDate;
         this.value = value;
         this.splitEvenly = splitEvenly;
     }

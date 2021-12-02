@@ -9,6 +9,7 @@ public class GUI {
     private JPanel MainPanel;
     private JTabbedPane Tabbedpane;
     private JLabel welcomeTextField;
+    private JComboBox comboBoxAddTicket;
 
     /**
      * Actions for all the buttons
@@ -17,7 +18,15 @@ public class GUI {
     public GUI()
     {
 
+        comboBoxAddTicket.addItem("AirplaneTicket");
+        comboBoxAddTicket.addItem("TaxiTicket");
+        comboBoxAddTicket.addItem("ConcertTicket");
+        comboBoxAddTicket.addItem("OtherTicket");
+        comboBoxAddTicket.addItem("RestaurantTicket");
+
     }
+
+
 
     /**
      * Initialize the gui

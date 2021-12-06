@@ -11,7 +11,7 @@ public class TicketDB{
     private static TicketDB instance;
     private final HashMap<Integer, Ticket> db;
 
-    TicketDB(){
+    public TicketDB(){
         this.db = new HashMap();
     }
 

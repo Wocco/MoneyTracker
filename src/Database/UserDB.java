@@ -11,7 +11,7 @@ public class UserDB {
     private static UserDB instance;
     private final HashMap<Integer, User> db;
 
-    UserDB(){
+    public UserDB(){
         this.db = new HashMap();
     }
 

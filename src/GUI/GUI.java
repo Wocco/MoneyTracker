@@ -1,8 +1,17 @@
 package GUI;
 
+import Controller.Controller;
+import Tickets.TicketFactory;
+
+import javax.naming.ldap.Control;
 import javax.swing.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.text.SimpleDateFormat;
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.format.DateTimeFormatter;
+import java.util.Date;
 
 public class GUI {
 
@@ -17,12 +26,19 @@ public class GUI {
     private JLabel splitEvenLabel;
     private JButton addTicketButton;
 
+
+    private Controller controller;
+    private TicketFactory factory;
     /**
      * Actions for all the buttons
      */
 
-    public GUI()
+    public GUI(Controller controller, TicketFactory factory)
     {
+        DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy");
+        LocalDateTime now = LocalDateTime.now();
+
+
         // addticket
         //combobox kind of ticker
         comboBoxAddTicket.addItem("AirplaneTicket");
@@ -39,7 +55,23 @@ public class GUI {
         addTicketButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                String selectedTicket = (String) comboBoxAddTicket.getSelectedItem();
+                String splitEven = (String) comboBoxSplitEven.getSelectedItem();
+                boolean splitEventrueorfalse;
 
+                if (splitEven.equals("Split evenly"))
+                {
+                    splitEventrueorfalse = true;
+                }
+                else
+                {
+                    splitEventrueorfalse = false;
+                }
+                switch (selectedTicket)
+                {
+                    case "AirplaneTicket":
+                        controller.createAirplaneTicket(factory,"test",(Integer.parseInt(PriceOfTicketField.getText())),new Date(""),splitEventrueorfalse); //create an airplane ticket
+                }
             }
         });
     }

@@ -1,15 +1,20 @@
 package Tickets;
 
+import User.User;
+
+import java.util.ArrayList;
 import java.util.Date;
 
 public class Ticket {
     private String description;
     private Date purchaseDate;
     private int hashValue;
+    private ArrayList<User> users;
     private int value;
     private boolean splitEvenly;
-    public Ticket(String description, int value, Date purchaseDate, boolean splitEvenly){
+    public Ticket(String description, ArrayList<User> users, int value, Date purchaseDate, boolean splitEvenly){
         this.description = description;
+        this.users = users;
         this.hashValue = description.hashCode();
         this.purchaseDate = purchaseDate;
         this.value = value;
@@ -43,4 +48,8 @@ public class Ticket {
     public boolean isSplitEvenly() {
         return splitEvenly;
     }
+
+    public void addUser(User user){this.users.add(user);}
+
+    public ArrayList<User> getUsers(){return users;}
 }

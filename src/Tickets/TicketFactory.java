@@ -1,29 +1,40 @@
 package Tickets;
 
+import User.User;
+
+import java.util.ArrayList;
 import java.util.Date;
 
 public class TicketFactory {
     public TicketFactory(){}
-    public Ticket makeTicket(String ticketKind, String description, int value, Date purchaseDate, boolean splitEvenly){
+    public Ticket makeTicket(String ticketKind, String description, ArrayList<User> users, int value, Date purchaseDate, boolean splitEvenly){
+        Ticket ticket = null;
         switch(ticketKind){
             case "AirplaneTicket":
-                return new AirplaneTicket(description, value, purchaseDate, splitEvenly);
             case "airplaneticket":
-                return new AirplaneTicket(description, value, purchaseDate, splitEvenly);
+                ticket = new AirplaneTicket(description, users, value, purchaseDate, splitEvenly);
+                break;
             case "RestaurantTicket":
-                return new RestaurantTicket(description, value, purchaseDate, splitEvenly);
             case "restaurantticket":
-                return new RestaurantTicket(description, value, purchaseDate, splitEvenly);
+                ticket =  new RestaurantTicket(description, users, value, purchaseDate, splitEvenly);
+                break;
             case "ConcertTicket":
-                return new ConcertTicket(description, value, purchaseDate, splitEvenly);
             case "concertticket":
-                return new ConcertTicket(description, value, purchaseDate, splitEvenly);
+                ticket =  new ConcertTicket(description, users, value, purchaseDate, splitEvenly);
+                break;
             case "OtherTicket":
-                return new OtherTicket(description, value, purchaseDate, splitEvenly);
             case "otherticket":
-                return new OtherTicket(description, value, purchaseDate, splitEvenly);
+                ticket = new OtherTicket(description, users, value, purchaseDate, splitEvenly);
+                break;
             default:
-                return null;
+                ticket = null;
+                break;
         }
+        int i = 0;
+        while(users.size() > i){
+            users.get(i).addTicketToUser(ticket.getValue());
+            i++;
+        }
+        return ticket;
     }
 }

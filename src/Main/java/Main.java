@@ -1,5 +1,3 @@
-package Main;
-
 import Controller.Controller;
 import Database.TicketDB;
 import Database.UserDB;
@@ -25,7 +23,7 @@ public class Main
         Controller controller = new Controller(ticketDB,userDB);
         TicketFactory factory = new TicketFactory();
         GUI gui = new GUI(controller,factory);
-        gui.app();
+        gui.app(gui);
 
     }
 }

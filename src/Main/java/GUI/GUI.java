@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.Calendar;
 import java.util.Date;
 
 public class GUI {
@@ -26,11 +27,12 @@ public class GUI {
     private JComboBox comboBoxSplitEven;
     private JLabel splitEvenLabel;
     private JButton addTicketButton;
-    //calender
 
+    //calender
     private JLabel CalenderLabel;
     private JPanel CalenderPanel;
     JDateChooser dateChooser = new JDateChooser();
+    Calendar cld = Calendar.getInstance();
 
     private ModuleLayer.Controller controller;
     private TicketFactory factory;
@@ -57,7 +59,8 @@ public class GUI {
         comboBoxSplitEven.addItem("Split evenly");
         comboBoxSplitEven.addItem("Do not split");
         //calender
-
+        dateChooser.setDateFormatString("dd/MM/yyyy");
+        CalenderPanel.add(dateChooser);
 
 
         /**
@@ -66,7 +69,13 @@ public class GUI {
         addTicketButton.addActionListener(new ActionListener() {
             @Override
             public void actionPerformed(ActionEvent e) {
+                //calendar
+                SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
+                String dt = simpleDateFormat.format(dateChooser.getDate());
+
+                
                 String selectedTicket = (String) comboBoxAddTicket.getSelectedItem();
+
                 String splitEven = (String) comboBoxSplitEven.getSelectedItem();
                 boolean splitEventrueorfalse;
 
@@ -81,7 +90,7 @@ public class GUI {
                 switch (selectedTicket)
                 {
                     case "AirplaneTicket":
-                        controller.createAirplaneTicket(factory,"test",(Integer.parseInt(PriceOfTicketField.getText())),new Date(""),splitEventrueorfalse); //create an airplane ticket
+                        //controller.createAirplaneTicket(factory,"test",(Integer.parseInt(PriceOfTicketField.getText())),new Date(""),splitEventrueorfalse); //create an airplane ticket
                 }
             }
         });
@@ -93,10 +102,10 @@ public class GUI {
      * Initialize the gui
      *
      */
-    public void app()
+    public void app(GUI gui)
     {
         JFrame frame = new JFrame("Money tracker");
-        frame.setContentPane(new GUI(controller, factory).MainPanel);
+        frame.setContentPane(gui.MainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(600,600);
         frame.setVisible(true);

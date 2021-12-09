@@ -27,6 +27,10 @@ public class UserDB {
         change.firePropertyChange(null,null,user);
     }
 
+    public User getUser(Integer hashValue){
+        return this.db.get(hashValue);
+    }
+
     private PropertyChangeSupport change = new PropertyChangeSupport(this);
     public void add(PropertyChangeListener pcl){
         change.addPropertyChangeListener(pcl);

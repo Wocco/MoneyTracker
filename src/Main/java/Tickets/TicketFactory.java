@@ -31,10 +31,8 @@ public class TicketFactory {
                 ticket = null;
                 break;
         }
-        int i = 0;
-        while(users.size() > i){
-            users.get(i).addTicketToUser(ticket.getValue());
-            i++;
+        for(User user : users.keySet()){
+            user.addTicketToUser(ticket.getValue());
         }
         return ticket;
     }

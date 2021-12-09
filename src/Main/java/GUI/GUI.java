@@ -73,7 +73,7 @@ public class GUI {
                 SimpleDateFormat simpleDateFormat = new SimpleDateFormat("dd/MM/yyyy");
                 String dt = simpleDateFormat.format(dateChooser.getDate());
 
-                
+
                 String selectedTicket = (String) comboBoxAddTicket.getSelectedItem();
 
                 String splitEven = (String) comboBoxSplitEven.getSelectedItem();

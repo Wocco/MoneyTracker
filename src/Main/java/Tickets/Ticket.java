@@ -8,12 +8,12 @@ import java.util.HashMap;
 
 public class Ticket {
     private String description;
-    private Date purchaseDate;
+    private String purchaseDate;
     private int hashValue;
     private HashMap<User, Integer> users;
     private int value;
     private boolean splitEvenly;
-    public Ticket(String description, HashMap<User, Integer> users, int value, Date purchaseDate, boolean splitEvenly){
+    public Ticket(String description, HashMap<User, Integer> users, int value, String purchaseDate, boolean splitEvenly){
         this.description = description;
         this.users = users;
         this.hashValue = description.hashCode();
@@ -30,7 +30,7 @@ public class Ticket {
         return value;
     }
 
-    public Date getPurchaseDate(){
+    public String getPurchaseDate(){
         return purchaseDate;
     }
 
@@ -42,7 +42,7 @@ public class Ticket {
         this.value = value;
     }
 
-    public void setPurchaseDate(Date purchaseDate){
+    public void setPurchaseDate(String purchaseDate){
         this.purchaseDate = purchaseDate;
     }
 

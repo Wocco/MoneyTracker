@@ -2,6 +2,7 @@ package GUI;
 
 import Controller.Controller;
 import Tickets.TicketFactory;
+import com.toedter.calendar.JDateChooser;
 
 import javax.naming.ldap.Control;
 import javax.swing.*;
@@ -25,10 +26,16 @@ public class GUI {
     private JComboBox comboBoxSplitEven;
     private JLabel splitEvenLabel;
     private JButton addTicketButton;
+    //calender
 
+    private JLabel CalenderLabel;
+    private JPanel CalenderPanel;
+    JDateChooser dateChooser = new JDateChooser();
 
-    private Controller controller;
+    private ModuleLayer.Controller controller;
     private TicketFactory factory;
+
+
     /**
      * Actions for all the buttons
      */
@@ -49,6 +56,10 @@ public class GUI {
         //combobox split evenly or not
         comboBoxSplitEven.addItem("Split evenly");
         comboBoxSplitEven.addItem("Do not split");
+        //calender
+
+
+
         /**
          * Listener for send button when a ticket is added.
          */

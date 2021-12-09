@@ -37,6 +37,12 @@ public class GUI {
     private JTextField namePayerField;
     private JLabel namesSplitlabel;
     private JTextField splitNamesField;
+    private JLabel usernameLabelAdd;
+    private JTextField userNameAddField;
+    private JButton SendButtonAdd;
+    private JButton removeButton;
+    private JLabel personDeleteLabel;
+    private JTextField nameToDeleteField;
     JDateChooser dateChooser = new JDateChooser();
     Calendar cld = Calendar.getInstance();
 
@@ -94,18 +100,24 @@ public class GUI {
                     splitEventrueorfalse = false;
                 }
                 String userString = namePayerField.getText().toString()+":"+"-"+PriceOfTicketField.getText().toString()+";";
-                String[] splitUsersfield = splitNamesField.getText().split("; ");
-                for(String u : splitUsersfield)
+                if(splitNamesField!=null && splitEventrueorfalse)
                 {
-                    userString = userString + u +":"+ (Integer.parseInt(PriceOfTicketField.getText()))/u.length()+";";
-
+                    String[] splitUsersfield = splitNamesField.getText().split(";");
+                    for(String u : splitUsersfield)
+                    {
+                        userString = userString + u +":"+ (Integer.parseInt(PriceOfTicketField.getText()))/splitUsersfield.length+";";
+                    }
                 }
+
+
+
+
                 System.out.println(userString);
 
                 switch (selectedTicket)
                 {
                     case "AirplaneTicket":
-                        controller.createAirplaneTicket(factory,descriptionField.getText(),"testUser",(Integer.parseInt(PriceOfTicketField.getText())),dt,splitEventrueorfalse); //create an airplane ticket
+                        controller.createAirplaneTicket(factory,descriptionField.getText(),userString,(Integer.parseInt(PriceOfTicketField.getText())),dt,splitEventrueorfalse); //create an airplane ticket
                 }
             }
         });

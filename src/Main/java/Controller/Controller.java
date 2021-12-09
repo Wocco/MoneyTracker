@@ -19,6 +19,7 @@ public class Controller
     public Controller(TicketDB ticketDB, UserDB userDB){
         this.ticketDB = ticketDB;
         this.userDB = userDB;
+
     }
 
     public Ticket createAirplaneTicket(TicketFactory ticketFactory, String description, String users, int value, String purchaseDate, boolean splitEvenly)

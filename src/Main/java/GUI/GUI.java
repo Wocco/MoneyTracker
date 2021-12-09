@@ -31,6 +31,12 @@ public class GUI {
     //calender
     private JLabel CalenderLabel;
     private JPanel CalenderPanel;
+    private JLabel DescriptionLabel;
+    private JTextField descriptionField;
+    private JLabel nameLabel;
+    private JTextField namePayerField;
+    private JLabel namesSplitlabel;
+    private JTextField splitNamesField;
     JDateChooser dateChooser = new JDateChooser();
     Calendar cld = Calendar.getInstance();
 
@@ -87,10 +93,19 @@ public class GUI {
                 {
                     splitEventrueorfalse = false;
                 }
+                String userString = namePayerField.getText().toString()+":"+"-"+PriceOfTicketField.getText().toString()+";";
+                String[] splitUsersfield = splitNamesField.getText().split("; ");
+                for(String u : splitUsersfield)
+                {
+                    userString = userString + u +":"+ (Integer.parseInt(PriceOfTicketField.getText()))/u.length()+";";
+
+                }
+                System.out.println(userString);
+
                 switch (selectedTicket)
                 {
                     case "AirplaneTicket":
-                        //controller.createAirplaneTicket(factory,"test",(Integer.parseInt(PriceOfTicketField.getText())),new Date(""),splitEventrueorfalse); //create an airplane ticket
+                        controller.createAirplaneTicket(factory,descriptionField.getText(),"testUser",(Integer.parseInt(PriceOfTicketField.getText())),dt,splitEventrueorfalse); //create an airplane ticket
                 }
             }
         });
@@ -107,7 +122,7 @@ public class GUI {
         JFrame frame = new JFrame("Money tracker");
         frame.setContentPane(gui.MainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(600,600);
+        frame.setSize(800,600);
         frame.setVisible(true);
     }
 }

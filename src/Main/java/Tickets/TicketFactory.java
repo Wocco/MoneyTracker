@@ -4,10 +4,11 @@ import User.User;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashMap;
 
 public class TicketFactory {
     public TicketFactory(){}
-    public Ticket makeTicket(String ticketKind, String description, ArrayList<User> users, int value, Date purchaseDate, boolean splitEvenly){
+    public Ticket makeTicket(String ticketKind, String description, HashMap<User, Integer> users, int value, Date purchaseDate, boolean splitEvenly){
         Ticket ticket = null;
         switch(ticketKind){
             case "AirplaneTicket":

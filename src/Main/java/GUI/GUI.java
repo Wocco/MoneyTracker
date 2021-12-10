@@ -15,6 +15,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.Calendar;
 import java.util.Date;
 
+import static java.lang.Integer.parseInt;
+
 public class GUI {
 
     private JPanel MainPanel;
@@ -99,13 +101,17 @@ public class GUI {
                 {
                     splitEventrueorfalse = false;
                 }
-                String userString = namePayerField.getText().toString()+":"+"-"+PriceOfTicketField.getText().toString()+";";
+                String userString = namePayerField.getText()+":"+"-"+PriceOfTicketField.getText()+";";
+
                 if(splitNamesField!=null && splitEventrueorfalse)
                 {
                     String[] splitUsersfield = splitNamesField.getText().split(";");
-                    for(String u : splitUsersfield)
-                    {
-                        userString = userString + u +":"+ (Integer.parseInt(PriceOfTicketField.getText()))/splitUsersfield.length+";";
+                    if(splitEventrueorfalse){
+                        Integer price = parseInt(PriceOfTicketField.getText())/(splitUsersfield.length+1);
+                        for(String u : splitUsersfield)
+                        {
+                            userString = userString + u +":"+price+";";
+                        }
                     }
                 }
 
@@ -117,7 +123,7 @@ public class GUI {
                 switch (selectedTicket)
                 {
                     case "AirplaneTicket":
-                        controller.createAirplaneTicket(factory,descriptionField.getText(),userString,(Integer.parseInt(PriceOfTicketField.getText())),dt,splitEventrueorfalse); //create an airplane ticket
+                        controller.createAirplaneTicket(factory,descriptionField.getText(),userString,(parseInt(PriceOfTicketField.getText())),dt,splitEventrueorfalse); //create an airplane ticket
                 }
             }
         });

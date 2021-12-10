@@ -12,6 +12,8 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
+import static java.lang.Integer.parseInt;
+
 public class Controller
 {
     private TicketDB ticketDB;
@@ -59,12 +61,12 @@ public class Controller
     }
 
     private HashMap<User, Integer> stringUsersToObjects(String users){
-        String[] splitUsersAndMoney = users.split("; ");
+        String[] splitUsersAndMoney = users.split(";");
         HashMap<User, Integer> userObjects = new HashMap<>();
         ArrayList<String> userNotFound = new ArrayList<>();
         for(String u : splitUsersAndMoney){
             String splitUser = u.split(":")[0];
-            Integer splitMoney = Integer.parseInt(u.split(":")[1]);
+            Integer splitMoney = parseInt(u.split(":")[1]);
             User userTemp = userDB.getUser(splitUser.hashCode());
             if(userTemp != null){
                 userObjects.put(userTemp,splitMoney);

@@ -59,6 +59,11 @@ public class Controller
         ticketDB.addTicket(description.hashCode(),ticket);
         return ticket;
     }
+    
+    public void addUser(String name){
+        User newUser = new User(name);
+        userDB.addUser(name.hashCode(), newUser);
+    }
 
     private HashMap<User, Integer> stringUsersToObjects(String users){
         String[] splitUsersAndMoney = users.split(";");
@@ -71,11 +76,11 @@ public class Controller
             if(userTemp != null){
                 userObjects.put(userTemp,splitMoney);
             }else{
-                userNotFound.add(u);
+                userNotFound.add(splitUser);
             }
         }
         if(!userNotFound.isEmpty()) {
-            System.out.println("Database error! Users that couldn't be found: " + userNotFound.toString());
+            System.out.println("Database error! Users that couldn't be found: " + userNotFound);
         }
         return userObjects;
     }

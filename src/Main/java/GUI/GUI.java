@@ -51,6 +51,7 @@ public class GUI {
     private JLabel overviewTicketsLabelShowhere;
     private JButton refreshButtonOverviewTickets;
     private JLabel addPeopleSuccesOrNotLabel;
+    private JLabel informationLabelRemove;
     private JPanel userAddPanelSuccesOrNot;
     JDateChooser dateChooser = new JDateChooser();
     Calendar cld = Calendar.getInstance();
@@ -153,6 +154,25 @@ public class GUI {
                 {
                     controller.addUser(userNameAddField.getText());
                     addPeopleSuccesOrNotLabel.setText(userNameAddField.getText()+" has been added to the list of people");
+                }
+            }
+        });
+
+        /***
+         * @function remove a person
+         */
+        removeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                if(nameToDeleteField.getText().equals(null))
+                {
+                    System.out.println("No name was given");
+                    informationLabelRemove.setText("No name was given");
+                }
+                else
+                {
+                    controller.removeUser(nameToDeleteField.getText().hashCode());
                 }
             }
         });

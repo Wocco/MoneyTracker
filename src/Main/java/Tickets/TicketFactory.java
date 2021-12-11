@@ -32,7 +32,7 @@ public class TicketFactory {
                 break;
         }
         for(User user : users.keySet()){
-            user.addTicketToUser(ticket.getValue());
+            user.addTicketToUser(description.hashCode());
         }
         return ticket;
     }

@@ -26,6 +26,8 @@ public class Ticket {
         return description;
     }
 
+    public int getHashValue(){return hashValue;}
+
     public int getValue(){
         return value;
     }

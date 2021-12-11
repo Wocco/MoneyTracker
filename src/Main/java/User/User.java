@@ -8,6 +8,7 @@ public class User {
     private ArrayList<Integer> tickets;
 
     public User(String name){
+        tickets = new ArrayList<>();
         this.name = name;
     }
 
@@ -15,13 +16,14 @@ public class User {
         return name;
     }
 
-    public ArrayList getTickets(){
+    public ArrayList<Integer> getTickets(){
         return tickets;
     }
 
     public void addTicketToUser(Integer hashValue){
         tickets.add(hashValue);
     }
+
 
     public void setName(String name){
         this.name = name;

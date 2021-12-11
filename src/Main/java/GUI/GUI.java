@@ -55,6 +55,7 @@ public class GUI {
     private JButton removeTicketButton;
     private JTextField removeTicketTextField;
     private JLabel RemoveticketLabel;
+    private JLabel explanationLabelAddTicket;
     private JPanel userAddPanelSuccesOrNot;
     JDateChooser dateChooser = new JDateChooser();
     Calendar cld = Calendar.getInstance();
@@ -83,6 +84,7 @@ public class GUI {
         //combobox split evenly or not
         comboBoxSplitEven.addItem("Split evenly");
         comboBoxSplitEven.addItem("Do not split");
+        comboBoxSplitEven.addItem("Split unevenly");
         //calender
         dateChooser.setDateFormatString("dd/MM/yyyy");
         CalenderPanel.add(dateChooser);
@@ -102,28 +104,55 @@ public class GUI {
                 String selectedTicket = (String) comboBoxAddTicket.getSelectedItem();
 
                 String splitEven = (String) comboBoxSplitEven.getSelectedItem();
-                boolean splitEventrueorfalse;
+                int splitEvenOrUneven=-10;
 
                 if (splitEven.equals("Split evenly"))
                 {
-                    splitEventrueorfalse = true;
+                    splitEvenOrUneven = 1;
+                }
+                else if(splitEven.equals("Do not split"))
+                {
+                    splitEvenOrUneven = 0;
                 }
                 else
                 {
-                    splitEventrueorfalse = false;
+                    splitEvenOrUneven = -1;
                 }
+
                 String userString = namePayerField.getText()+":"+"-"+PriceOfTicketField.getText()+";";
 
-                if(splitNamesField!=null && splitEventrueorfalse)
+                if(splitNamesField!=null && splitEvenOrUneven==1)                                       //splitting even
                 {
                     String[] splitUsersfield = splitNamesField.getText().split(";");
-                    if(splitEventrueorfalse){
+                    if(splitEvenOrUneven==1){
                         Integer price = parseInt(PriceOfTicketField.getText())/(splitUsersfield.length+1);
                         for(String u : splitUsersfield)
                         {
                             userString = userString + u +":"+price+";";
                         }
                     }
+                }
+                /***
+                 * @// FIXME: 11/12/2021 
+                 */
+                if(splitNamesField!=null && splitEvenOrUneven==-1)                                       //splitting uneven
+                {
+                    String[] splitUsersfield = splitNamesField.getText().split(";");
+                    if(splitEvenOrUneven==-1){
+
+                        int percentagecheck=0;
+                        for(String u : splitUsersfield)
+                        {
+                            String[] getPercentage = u.split(":");
+                            int percentage = parseInt(getPercentage[1]);
+                            percentagecheck = percentagecheck+percentage;
+                            
+                            Integer price = (parseInt(PriceOfTicketField.getText())*(percentage/100));
+                            userString = userString + getPercentage[0] +":"+price+";";
+                        }
+                    }
+                    //System.out.println(userString);
+
                 }
 
 
@@ -134,7 +163,7 @@ public class GUI {
                 switch (selectedTicket)
                 {
                     case "AirplaneTicket":
-                        controller.createAirplaneTicket(factory,descriptionField.getText(),userString,(parseInt(PriceOfTicketField.getText())),dt,splitEventrueorfalse); //create an airplane ticket
+                        controller.createAirplaneTicket(factory,descriptionField.getText(),userString,(parseInt(PriceOfTicketField.getText())),dt,splitEvenOrUneven); //create an airplane ticket
 
                 }
             }

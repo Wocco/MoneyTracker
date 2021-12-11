@@ -24,35 +24,35 @@ public class Controller
 
     }
 
-    public Ticket createAirplaneTicket(TicketFactory ticketFactory, String description, String users, int value, String purchaseDate, boolean splitEvenly)
+    public Ticket createAirplaneTicket(TicketFactory ticketFactory, String description, String users, int value, String purchaseDate, int splitEvenly)
     {
         HashMap<User, Integer> userObjects = stringUsersToObjects(users);
         Ticket ticket = ticketFactory.makeTicket("AirplaneTicket", description, userObjects, value,purchaseDate,splitEvenly);
         ticketDB.addTicket(description.hashCode(),ticket);
         return ticket;
     }
-    public Ticket createConcertTicket(TicketFactory ticketFactory,String description, String users, int value, String purchaseDate, boolean splitEvenly)
+    public Ticket createConcertTicket(TicketFactory ticketFactory,String description, String users, int value, String purchaseDate, int splitEvenly)
     {
         HashMap<User, Integer> userObjects = stringUsersToObjects(users);
         Ticket ticket = ticketFactory.makeTicket("ConcertTicket",description, userObjects, value,purchaseDate,splitEvenly);
         ticketDB.addTicket(description.hashCode(),ticket);
         return ticket;
     }
-    public Ticket createOtherTicket(TicketFactory ticketFactory,String description, String users, int value, String purchaseDate, boolean splitEvenly)
+    public Ticket createOtherTicket(TicketFactory ticketFactory,String description, String users, int value, String purchaseDate, int splitEvenly)
     {
         HashMap<User, Integer> userObjects = stringUsersToObjects(users);
         Ticket ticket = ticketFactory.makeTicket("OtherTicket",description, userObjects, value,purchaseDate,splitEvenly);
         ticketDB.addTicket(description.hashCode(),ticket);
         return ticket;
     }
-    public Ticket createRestaurantTicket(TicketFactory ticketFactory,String description, String users, int value, String purchaseDate, boolean splitEvenly)
+    public Ticket createRestaurantTicket(TicketFactory ticketFactory,String description, String users, int value, String purchaseDate, int splitEvenly)
     {
         HashMap<User, Integer> userObjects = stringUsersToObjects(users);
         Ticket ticket = ticketFactory.makeTicket("RestaurantTicket",description, userObjects, value,purchaseDate,splitEvenly);
         ticketDB.addTicket(description.hashCode(),ticket);
         return ticket;
     }
-    public Ticket createTaxiTicket(TicketFactory ticketFactory,String description, String users, int value, String purchaseDate, boolean splitEvenly)
+    public Ticket createTaxiTicket(TicketFactory ticketFactory,String description, String users, int value, String purchaseDate, int splitEvenly)
     {
         HashMap<User, Integer> userObjects = stringUsersToObjects(users);
         Ticket ticket = ticketFactory.makeTicket("TaxiTicket",description, userObjects, value,purchaseDate,splitEvenly);

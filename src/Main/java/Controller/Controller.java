@@ -12,6 +12,7 @@ import java.util.ArrayList;
 import java.util.Date;
 import java.util.HashMap;
 
+import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
 public class Controller
@@ -24,37 +25,37 @@ public class Controller
 
     }
 
-    public Ticket createAirplaneTicket(TicketFactory ticketFactory, String description, String users, int value, String purchaseDate, int splitEvenly)
+    public Ticket createAirplaneTicket(TicketFactory ticketFactory, String description, String users, double value, String purchaseDate, int splitEvenly)
     {
-        HashMap<User, Integer> userObjects = stringUsersToObjects(users);
+        HashMap<User, Double> userObjects = stringUsersToObjects(users);
         Ticket ticket = ticketFactory.makeTicket("AirplaneTicket", description, userObjects, value,purchaseDate,splitEvenly);
         ticketDB.addTicket(description.hashCode(),ticket);
         return ticket;
     }
-    public Ticket createConcertTicket(TicketFactory ticketFactory,String description, String users, int value, String purchaseDate, int splitEvenly)
+    public Ticket createConcertTicket(TicketFactory ticketFactory,String description, String users, double value, String purchaseDate, int splitEvenly)
     {
-        HashMap<User, Integer> userObjects = stringUsersToObjects(users);
+        HashMap<User, Double> userObjects = stringUsersToObjects(users);
         Ticket ticket = ticketFactory.makeTicket("ConcertTicket",description, userObjects, value,purchaseDate,splitEvenly);
         ticketDB.addTicket(description.hashCode(),ticket);
         return ticket;
     }
-    public Ticket createOtherTicket(TicketFactory ticketFactory,String description, String users, int value, String purchaseDate, int splitEvenly)
+    public Ticket createOtherTicket(TicketFactory ticketFactory,String description, String users, double value, String purchaseDate, int splitEvenly)
     {
-        HashMap<User, Integer> userObjects = stringUsersToObjects(users);
+        HashMap<User, Double> userObjects = stringUsersToObjects(users);
         Ticket ticket = ticketFactory.makeTicket("OtherTicket",description, userObjects, value,purchaseDate,splitEvenly);
         ticketDB.addTicket(description.hashCode(),ticket);
         return ticket;
     }
-    public Ticket createRestaurantTicket(TicketFactory ticketFactory,String description, String users, int value, String purchaseDate, int splitEvenly)
+    public Ticket createRestaurantTicket(TicketFactory ticketFactory,String description, String users, double value, String purchaseDate, int splitEvenly)
     {
-        HashMap<User, Integer> userObjects = stringUsersToObjects(users);
+        HashMap<User, Double> userObjects = stringUsersToObjects(users);
         Ticket ticket = ticketFactory.makeTicket("RestaurantTicket",description, userObjects, value,purchaseDate,splitEvenly);
         ticketDB.addTicket(description.hashCode(),ticket);
         return ticket;
     }
-    public Ticket createTaxiTicket(TicketFactory ticketFactory,String description, String users, int value, String purchaseDate, int splitEvenly)
+    public Ticket createTaxiTicket(TicketFactory ticketFactory,String description, String users, double value, String purchaseDate, int splitEvenly)
     {
-        HashMap<User, Integer> userObjects = stringUsersToObjects(users);
+        HashMap<User, Double> userObjects = stringUsersToObjects(users);
         Ticket ticket = ticketFactory.makeTicket("TaxiTicket",description, userObjects, value,purchaseDate,splitEvenly);
         ticketDB.addTicket(description.hashCode(),ticket);
         return ticket;
@@ -77,13 +78,13 @@ public class Controller
         return userDB.getUserNames();
     }
 
-    private HashMap<User, Integer> stringUsersToObjects(String users){
+    private HashMap<User, Double> stringUsersToObjects(String users){
         String[] splitUsersAndMoney = users.split(";");
-        HashMap<User, Integer> userObjects = new HashMap<>();
+        HashMap<User, Double> userObjects = new HashMap<>();
         ArrayList<String> userNotFound = new ArrayList<>();
         for(String u : splitUsersAndMoney){
             String splitUser = u.split(":")[0];
-            Integer splitMoney = parseInt(u.split(":")[1]);
+            Double splitMoney = parseDouble(u.split(":")[1]);
             User userTemp = userDB.getUser(splitUser.hashCode());
             if(userTemp != null){
                 userObjects.put(userTemp,splitMoney);

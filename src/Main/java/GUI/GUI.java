@@ -131,30 +131,10 @@ public class GUI {
                             userString = userString + u +":"+price+";";
                         }
                     }
-                }
-                /***
-                 * @// FIXME: 11/12/2021 
-                 */
-                if(splitNamesField!=null && splitEvenOrUneven==-1)                                       //splitting uneven
+                }else if(splitNamesField!=null && splitEvenOrUneven==-1)                                       //splitting uneven
                 {
-                    String[] splitUsersfield = splitNamesField.getText().split(";");
-                    if(splitEvenOrUneven==-1){
-
-                        int percentagecheck=0;
-                        for(String u : splitUsersfield)
-                        {
-                            String[] getPercentage = u.split(":");
-                            int percentage = parseInt(getPercentage[1]);
-                            percentagecheck = percentagecheck+percentage;
-                            
-                            Integer price = (parseInt(PriceOfTicketField.getText())*(percentage/100));
-                            userString = userString + getPercentage[0] +":"+price+";";
-                        }
-                    }
-                    //System.out.println(userString);
-
+                    userString = userString+splitNamesField.getText();
                 }
-
 
 
 

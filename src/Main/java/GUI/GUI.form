@@ -336,7 +336,7 @@
                 </constraints>
                 <properties>
                   <horizontalTextPosition value="2"/>
-                  <text value="When you select uneven give the percentage that should be payed per person. Example: Jan:30;Joris:70;"/>
+                  <text value="When you select uneven give the amount that should be paid per person. Example: Jan:30;Joris:70;"/>
                 </properties>
               </component>
             </children>

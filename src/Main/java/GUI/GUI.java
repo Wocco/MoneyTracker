@@ -52,6 +52,9 @@ public class GUI {
     private JButton refreshButtonOverviewTickets;
     private JLabel addPeopleSuccesOrNotLabel;
     private JLabel informationLabelRemove;
+    private JButton removeTicketButton;
+    private JTextField removeTicketTextField;
+    private JLabel RemoveticketLabel;
     private JPanel userAddPanelSuccesOrNot;
     JDateChooser dateChooser = new JDateChooser();
     Calendar cld = Calendar.getInstance();

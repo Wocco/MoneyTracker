@@ -5,6 +5,7 @@ import Tickets.Ticket;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TicketDB{
@@ -27,6 +28,13 @@ public class TicketDB{
         change.firePropertyChange(null,null,ticket);
     }
 
+    public ArrayList<Ticket> getAllTickets(){
+        ArrayList<Ticket> allTickets = new ArrayList<>();
+        for(Ticket ticket:db.values()){
+            allTickets.add(ticket);
+        }
+        return allTickets;
+    }
 
     private PropertyChangeSupport change = new PropertyChangeSupport(this);
     public void add(PropertyChangeListener pcl){

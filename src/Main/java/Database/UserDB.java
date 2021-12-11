@@ -5,6 +5,7 @@ import User.User;
 
 import java.beans.PropertyChangeListener;
 import java.beans.PropertyChangeSupport;
+import java.util.ArrayList;
 import java.util.HashMap;
 
 public class UserDB {
@@ -23,8 +24,12 @@ public class UserDB {
     }
 
     public void addUser(Integer hashValue, User user){
-        this.db.put(hashValue,user);
-        change.firePropertyChange(null,null,user);
+        if(db.get(hashValue)==null) {
+            this.db.put(hashValue, user);
+            change.firePropertyChange(null, null, user);
+        }else{
+            System.out.println("Error, this user already exists!");
+        }
     }
 
     public User getUser(Integer hashValue){
@@ -33,6 +38,14 @@ public class UserDB {
 
     public void removeUser(Integer hashValue){
         this.db.remove(hashValue);
+    }
+
+    public ArrayList<String> getUserNames(){
+        ArrayList<String> userNames = new ArrayList<>();
+        for(User user:db.values()){
+            userNames.add(user.getName());
+        }
+        return userNames;
     }
 
     private PropertyChangeSupport change = new PropertyChangeSupport(this);

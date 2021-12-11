@@ -60,6 +60,10 @@ public class Controller
         return ticket;
     }
 
+    public ArrayList<Ticket> getAllTickets(){
+        return ticketDB.getAllTickets();
+    }
+
     public void addUser(String name){
         User newUser = new User(name);
         userDB.addUser(name.hashCode(), newUser);
@@ -68,7 +72,11 @@ public class Controller
     public void removeUser(Integer hashvalue){
         userDB.removeUser(hashvalue);
     }
-    
+
+    public ArrayList<String> getUserNames(){
+        return userDB.getUserNames();
+    }
+
     private HashMap<User, Integer> stringUsersToObjects(String users){
         String[] splitUsersAndMoney = users.split(";");
         HashMap<User, Integer> userObjects = new HashMap<>();

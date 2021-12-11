@@ -45,6 +45,13 @@ public class GUI {
     private JButton removeButton;
     private JLabel personDeleteLabel;
     private JTextField nameToDeleteField;
+    private JLabel usersOverviewAllUsersLabel;
+    private JButton allUsersButon;
+    private JLabel overviewTicketsLabel;
+    private JLabel overviewTicketsLabelShowhere;
+    private JButton refreshButtonOverviewTickets;
+    private JLabel addPeopleSuccesOrNotLabel;
+    private JPanel userAddPanelSuccesOrNot;
     JDateChooser dateChooser = new JDateChooser();
     Calendar cld = Calendar.getInstance();
 
@@ -124,6 +131,28 @@ public class GUI {
                 {
                     case "AirplaneTicket":
                         controller.createAirplaneTicket(factory,descriptionField.getText(),userString,(parseInt(PriceOfTicketField.getText())),dt,splitEventrueorfalse); //create an airplane ticket
+
+                }
+            }
+        });
+
+        /**
+         * @function Add a user
+         * add button pressed -> A user should be added
+         */
+        SendButtonAdd.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                if(userNameAddField.getText().equals(null))
+                {
+                    System.out.println("No value added because no name was given");
+                    addPeopleSuccesOrNotLabel.setText("No value added because no name was given");
+                }
+                else
+                {
+                    controller.addUser(userNameAddField.getText());
+                    addPeopleSuccesOrNotLabel.setText(userNameAddField.getText()+" has been added to the list of people");
                 }
             }
         });
@@ -140,7 +169,7 @@ public class GUI {
         JFrame frame = new JFrame("Money tracker");
         frame.setContentPane(gui.MainPanel);
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
-        frame.setSize(800,600);
+        frame.setSize(900,700);
         frame.setVisible(true);
     }
 }

@@ -59,12 +59,16 @@ public class Controller
         ticketDB.addTicket(description.hashCode(),ticket);
         return ticket;
     }
-    
+
     public void addUser(String name){
         User newUser = new User(name);
         userDB.addUser(name.hashCode(), newUser);
     }
 
+    public void removeUser(Integer hashvalue){
+        userDB.removeUser(hashvalue);
+    }
+    
     private HashMap<User, Integer> stringUsersToObjects(String users){
         String[] splitUsersAndMoney = users.split(";");
         HashMap<User, Integer> userObjects = new HashMap<>();

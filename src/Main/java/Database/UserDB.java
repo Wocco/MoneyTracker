@@ -31,6 +31,10 @@ public class UserDB {
         return this.db.get(hashValue);
     }
 
+    public void removeUser(Integer hashValue){
+        this.db.remove(hashValue);
+    }
+
     private PropertyChangeSupport change = new PropertyChangeSupport(this);
     public void add(PropertyChangeListener pcl){
         change.addPropertyChangeListener(pcl);

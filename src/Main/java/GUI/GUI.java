@@ -12,9 +12,11 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
+import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
 
 public class GUI {
@@ -125,7 +127,7 @@ public class GUI {
                 {
                     String[] splitUsersfield = splitNamesField.getText().split(";");
                     if(splitEvenOrUneven==1){
-                        Integer price = parseInt(PriceOfTicketField.getText())/(splitUsersfield.length+1);
+                        Double price = parseDouble(PriceOfTicketField.getText())/(splitUsersfield.length+1);
                         for(String u : splitUsersfield)
                         {
                             userString = userString + u +":"+price+";";
@@ -186,6 +188,18 @@ public class GUI {
                 {
                     controller.removeUser(nameToDeleteField.getText().hashCode());
                 }
+            }
+        });
+
+        /***
+         * @function show all users on the overview users tab after the button is pressed
+         */
+        allUsersButon.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ArrayList<String> allusers = controller.getUserNames();
+                usersOverviewAllUsersLabel.setText(allusers.toString());
+
             }
         });
     }

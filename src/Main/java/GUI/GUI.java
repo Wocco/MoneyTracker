@@ -49,15 +49,14 @@ public class GUI {
     private JTextField nameToDeleteField;
     private JLabel usersOverviewAllUsersLabel;
     private JButton allUsersButon;
-    private JLabel overviewTicketsLabel;
-    private JLabel overviewTicketsLabelShowhere;
-    private JButton refreshButtonOverviewTickets;
     private JLabel addPeopleSuccesOrNotLabel;
     private JLabel informationLabelRemove;
     private JButton removeTicketButton;
     private JTextField removeTicketTextField;
     private JLabel RemoveticketLabel;
     private JLabel explanationLabelAddTicket;
+    private JLabel userOverviewLabel;
+    private JLabel informationRemoveTicketLabel;
     private JPanel userAddPanelSuccesOrNot;
     JDateChooser dateChooser = new JDateChooser();
     Calendar cld = Calendar.getInstance();
@@ -198,8 +197,26 @@ public class GUI {
             @Override
             public void actionPerformed(ActionEvent e) {
                 ArrayList<String> allusers = controller.getUserNames();
-                usersOverviewAllUsersLabel.setText(allusers.toString());
+                userOverviewLabel.setText(allusers.toString());
 
+            }
+        });
+        /**
+         * Remove a ticket
+         */
+        removeTicketButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(removeTicketTextField.getText().equals(null))
+                {
+                    System.out.println("No ticket was given");
+                    informationRemoveTicketLabel.setText("No Ticket was given");
+                }
+                else
+                {
+                    controller.removeUser(removeTicketTextField.getText().hashCode());
+                    informationRemoveTicketLabel.setText("Removed ticket");
+                }
             }
         });
     }

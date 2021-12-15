@@ -12,7 +12,6 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
-import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -49,14 +48,15 @@ public class GUI {
     private JTextField nameToDeleteField;
     private JLabel usersOverviewAllUsersLabel;
     private JButton allUsersButon;
+    private JLabel overviewTicketsLabel;
+    private JLabel overviewTicketsLabelShowhere;
+    private JButton refreshButtonOverviewTickets;
     private JLabel addPeopleSuccesOrNotLabel;
     private JLabel informationLabelRemove;
     private JButton removeTicketButton;
     private JTextField removeTicketTextField;
     private JLabel RemoveticketLabel;
     private JLabel explanationLabelAddTicket;
-    private JLabel userOverviewLabel;
-    private JLabel informationRemoveTicketLabel;
     private JPanel userAddPanelSuccesOrNot;
     JDateChooser dateChooser = new JDateChooser();
     Calendar cld = Calendar.getInstance();
@@ -120,12 +120,13 @@ public class GUI {
                     splitEvenOrUneven = -1;
                 }
 
-                String userString = namePayerField.getText()+":"+"-"+PriceOfTicketField.getText()+";";
+                String userString = "";
 
                 if(splitNamesField!=null && splitEvenOrUneven==1)                                       //splitting even
                 {
                     String[] splitUsersfield = splitNamesField.getText().split(";");
                     if(splitEvenOrUneven==1){
+                        userString = namePayerField.getText()+":"+"-"+(parseDouble(PriceOfTicketField.getText())*(splitUsersfield.length/(splitUsersfield.length+1)))+";";
                         Double price = parseDouble(PriceOfTicketField.getText())/(splitUsersfield.length+1);
                         for(String u : splitUsersfield)
                         {
@@ -134,12 +135,11 @@ public class GUI {
                     }
                 }else if(splitNamesField!=null && splitEvenOrUneven==-1)                                       //splitting uneven
                 {
+                    userString = namePayerField.getText();
                     userString = userString+splitNamesField.getText();
                 }
 
 
-
-                System.out.println(userString);
 
                 switch (selectedTicket)
                 {
@@ -186,36 +186,6 @@ public class GUI {
                 else
                 {
                     controller.removeUser(nameToDeleteField.getText().hashCode());
-                }
-            }
-        });
-
-        /***
-         * @function show all users on the overview users tab after the button is pressed
-         */
-        allUsersButon.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ArrayList<String> allusers = controller.getUserNames();
-                userOverviewLabel.setText(allusers.toString());
-
-            }
-        });
-        /**
-         * Remove a ticket
-         */
-        removeTicketButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                if(removeTicketTextField.getText().equals(null))
-                {
-                    System.out.println("No ticket was given");
-                    informationRemoveTicketLabel.setText("No Ticket was given");
-                }
-                else
-                {
-                    controller.removeUser(removeTicketTextField.getText().hashCode());
-                    informationRemoveTicketLabel.setText("Removed ticket");
                 }
             }
         });

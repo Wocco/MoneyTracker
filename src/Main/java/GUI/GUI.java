@@ -203,17 +203,7 @@ public class GUI {
         });
 
 
-        /***
-         * @function show all users on the overview users tab after the button is pressed
-         */
-        allUsersButon.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                ArrayList<String> allusers = controller.getUserNames();
-                userOverviewLabel.setText(allusers.toString());
 
-            }
-        });
         /**
          * Remove a ticket
          */
@@ -233,16 +223,7 @@ public class GUI {
             }
         });
 
-
-        /**
-         * @function overview of all the tickets that are active now
-         */
-        viewTicketsButton.addActionListener(new ActionListener() {
-            @Override
-            public void actionPerformed(ActionEvent e) {
-                namesOfTicketsOverviewLabel.setText(controller.getAllTickets().toString());
-            }
-        });
+        
     }
 
 

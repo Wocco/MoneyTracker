@@ -6,31 +6,45 @@ import Database.UserDB;
 import Tickets.Ticket;
 import Tickets.TicketFactory;
 import User.User;
-
-import java.lang.reflect.Array;
 import java.util.ArrayList;
-import java.util.Date;
 import java.util.HashMap;
-
 import static java.lang.Double.parseDouble;
-import static java.lang.Integer.parseInt;
+
 
 public class Controller
 {
     private TicketDB ticketDB;
     private UserDB userDB;
-    public Controller(TicketDB ticketDB, UserDB userDB){
+    private TicketFactory ticketFactory;
+    public Controller(TicketDB ticketDB, UserDB userDB, TicketFactory ticketFactory){
         this.ticketDB = ticketDB;
         this.userDB = userDB;
-
+        this.ticketFactory = ticketFactory;
     }
 
-    public Ticket createTicket(TicketFactory ticketFactory,String ticketType, String description, String users, double value, String purchaseDate, int splitEvenly)
+    public Ticket createTicket(String ticketType, String description, String users, double value, String purchaseDate, boolean splitEvenly)
     {
-        HashMap<User, Double> userObjects = stringUsersToObjects(users);
-        if(splitEvenly == 1) {
-            Ticket ticket = ticketFactory.makeTicket(ticketType, description, userObjects, value, purchaseDate, splitEvenly);
+        Ticket ticket = null;
+        String userString = "";
+        if(splitEvenly) {
+            String[] splittedUsers = users.split(";");
+            int addedUsers = splittedUsers.length;
+            userString = splittedUsers[0]+(-(value*(addedUsers-1))/addedUsers)+";";
+
+            for(int i=1; i<addedUsers;i++){
+                userString = userString+splittedUsers[i]+":"+(value/addedUsers)+";";
+            }
+        }else {
+            String[] otherUsers = users.split(":;")[1].split(";");
+            Double firstUserValue = 0.0;
+            for(String usr : otherUsers){
+                firstUserValue = firstUserValue + parseDouble(usr.split(":")[1]);
+            }
+            String firstUser = users.split(":;")[0]+":"+(-firstUserValue)+";";
+            userString = firstUser + users.split(":;")[1];
         }
+        HashMap<User, Double> userObjects = stringUsersToObjects(userString);
+        ticket = ticketFactory.makeTicket(ticketType, description, userObjects, value, purchaseDate, splitEvenly);
         ticketDB.addTicket(description.hashCode(),ticket);
         return ticket;
     }
@@ -48,8 +62,8 @@ public class Controller
         userDB.removeUser(hashvalue);
     }
 
-    public ArrayList<String> getUserNames(){
-        return userDB.getUserNames();
+    public ArrayList<User> getUsers(){
+        return userDB.getUsers();
     }
 
     private HashMap<User, Double> stringUsersToObjects(String users){
@@ -71,8 +85,4 @@ public class Controller
         }
         return userObjects;
     }
-
-
-
-
 }

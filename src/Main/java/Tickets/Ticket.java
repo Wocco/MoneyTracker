@@ -12,8 +12,8 @@ public class Ticket {
     private int hashValue;
     private HashMap<User, Double> users;
     private double value;
-    private int splitEvenly;
-    public Ticket(String description, HashMap<User, Double> users, double value, String purchaseDate, int splitEvenly){
+    private boolean splitEvenly;
+    public Ticket(String description, HashMap<User, Double> users, double value, String purchaseDate, boolean splitEvenly){
         this.description = description;
         this.users = users;
         this.hashValue = description.hashCode();
@@ -48,7 +48,7 @@ public class Ticket {
         this.purchaseDate = purchaseDate;
     }
 
-    public int isSplitEvenly() {
+    public boolean isSplitEvenly() {
         return splitEvenly;
     }
 

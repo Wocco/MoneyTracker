@@ -1,13 +1,20 @@
 package GUI;
 
 import Controller.Controller;
+import Tickets.Ticket;
 import Tickets.TicketFactory;
+import User.User;
 import com.toedter.calendar.JDateChooser;
 
 import javax.naming.ldap.Control;
 import javax.swing.*;
+import javax.swing.table.AbstractTableModel;
+import javax.swing.table.DefaultTableModel;
+import javax.swing.table.TableColumnModel;
+import javax.swing.table.TableModel;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.lang.reflect.Array;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -15,6 +22,7 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
+import java.util.Vector;
 
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
@@ -64,6 +72,7 @@ public class GUI {
     private JLabel namesOfTicketsOverviewLabel;
     private JPanel userAddPanelSuccesOrNot;
     private JLabel userOverviewLabel;
+    private JTable billTableOverview;
     JDateChooser dateChooser = new JDateChooser();
     Calendar cld = Calendar.getInstance();
 
@@ -75,7 +84,7 @@ public class GUI {
      * Actions for all the buttons
      */
 
-    public GUI(Controller controller, TicketFactory factory)
+    public GUI(Controller controller)
     {
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy");
         LocalDateTime now = LocalDateTime.now();
@@ -111,54 +120,19 @@ public class GUI {
                 String selectedTicket = (String) comboBoxAddTicket.getSelectedItem();
 
                 String splitEven = (String) comboBoxSplitEven.getSelectedItem();
-                int splitEvenOrUneven;
+                boolean splitEvenOrUneven;
 
                 if (splitEven.equals("Split evenly"))
                 {
-                    splitEvenOrUneven = 1;
-                }
-                else if(splitEven.equals("Do not split"))
-                {
-                    splitEvenOrUneven = 0;
+                    splitEvenOrUneven = true;
                 }
                 else
                 {
-                    splitEvenOrUneven = -1;
+                    splitEvenOrUneven = false;
                 }
 
-                String userString = namePayerField.getText()+":"+"-"+(parseDouble(PriceOfTicketField.getText()))+splitNamesField.getText();
-
-                if(splitNamesField!=null && splitEvenOrUneven==1)                                       //splitting even
-                {
-                    String[] splitUsersfield = splitNamesField.getText().split(";");
-                    if(splitEvenOrUneven==1){
-                        for(String u : splitUsersfield)
-                        {
-                            userString = userString + u +":"+price+";";
-                        }
-                    }
-                }
-                else if(splitNamesField!=null && splitEvenOrUneven == -1)                                       //splitting uneven
-                {
-
-                    userString = namePayerField.getText();
-                    userString = userString+splitNamesField.getText();
-                }
-                else
-                {
-                    userString = namePayerField.getText();
-                    userString=userString+":"+PriceOfTicketField.getText()+";";
-
-                }
-
-
-
-                switch (selectedTicket)
-                {
-                    case "AirplaneTicket":
-                        controller.createTicket(factory,"AirplaneTicket",descriptionField.getText(),userString,(parseDouble(PriceOfTicketField.getText())),dt,splitEvenOrUneven); //create an airplane ticket
-
-                }
+                String userString = namePayerField.getText()+":;"+splitNamesField.getText();
+                controller.createTicket(selectedTicket,descriptionField.getText(),userString,(parseDouble(PriceOfTicketField.getText())),dt,splitEvenOrUneven); //create an airplane ticket
             }
         });
 
@@ -230,15 +204,54 @@ public class GUI {
     public void updateUser(Controller controller)
     {
         //Update the user fields
-        ArrayList<String> allusers = controller.getUserNames();
-        userOverviewLabel.setText(allusers.toString());
-
+        ArrayList<User> allusers = controller.getUsers();
+        String users = "Users: ";
+        for(User user : allusers){
+            users = users+user.getName()+", ";
+        }
+        userOverviewLabel.setText(users);
+        updateTable(controller);
     }
 
     public void updateTicket(Controller controller)
     {
         //update the tickets
-        namesOfTicketsOverviewLabel.setText(controller.getAllTickets().toString());
+        ArrayList<Ticket> tickets = controller.getAllTickets();
+        String ticketText = "Tickets: ";
+        for(Ticket ticket : tickets){
+            ticketText = ticketText + ticket.getDescription()+ ", ";
+        }
+        namesOfTicketsOverviewLabel.setText(ticketText);
+        updateTable(controller);
+    }
+
+    private void updateTable(Controller controller){
+        //int collumsToRemove = billTableOverview.getColumnCount();
+        //for(int i = collumsToRemove-1;i>=0;i--){
+        //    billTableOverview.removeColumn(billTableOverview.getColumn(i));
+        //}
+        ArrayList<User> userobjects = controller.getUsers();
+        ArrayList<Ticket> tickets = controller.getAllTickets();
+        ArrayList<String> userNames = new ArrayList();
+        Integer howManyUsers = 0;
+        for(User user : userobjects){
+             = userString+user.getName()+";";
+            howManyUsers++;
+        }
+        Integer howManyTickets = 0;
+        String ticketString = "";
+        for(Ticket ticket : tickets){
+            ticketString = ticketString+ticket.getDescription()+";";
+            howManyTickets++;
+        }
+        System.out.println(howManyUsers);
+        System.out.println(howManyTickets);
+
+        DefaultTableModel model ;
+        ArrayList= userString.split(";");
+        String[][] tickets =  ticketString.split(";");
+        billTableOverview = new JTable(users);
+
     }
 
     /**
@@ -252,5 +265,9 @@ public class GUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(900,700);
         frame.setVisible(true);
+    }
+
+    private void createUIComponents() {
+        // TODO: place custom component creation code here
     }
 }

@@ -12,6 +12,7 @@ import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 
@@ -57,7 +58,12 @@ public class GUI {
     private JTextField removeTicketTextField;
     private JLabel RemoveticketLabel;
     private JLabel explanationLabelAddTicket;
+    private JLabel informationRemoveTicketLabel;
+    private JButton viewTicketsButton;
+    private JLabel NameOfTicketsLabel;
+    private JLabel namesOfTicketsOverviewLabel;
     private JPanel userAddPanelSuccesOrNot;
+    private JLabel userOverviewLabel;
     JDateChooser dateChooser = new JDateChooser();
     Calendar cld = Calendar.getInstance();
 
@@ -133,8 +139,10 @@ public class GUI {
                             userString = userString + u +":"+price+";";
                         }
                     }
-                }else if(splitNamesField!=null && splitEvenOrUneven==-1)                                       //splitting uneven
+                }
+                else if(splitNamesField!=null && splitEvenOrUneven == -1)                                       //splitting uneven
                 {
+
                     userString = namePayerField.getText();
                     userString = userString+splitNamesField.getText();
                 }
@@ -187,6 +195,48 @@ public class GUI {
                 {
                     controller.removeUser(nameToDeleteField.getText().hashCode());
                 }
+            }
+        });
+
+
+        /***
+         * @function show all users on the overview users tab after the button is pressed
+         */
+        allUsersButon.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                ArrayList<String> allusers = controller.getUserNames();
+                userOverviewLabel.setText(allusers.toString());
+
+            }
+        });
+        /**
+         * Remove a ticket
+         */
+        removeTicketButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                if(removeTicketTextField.getText().equals(null))
+                {
+                    System.out.println("No ticket was given");
+                    informationRemoveTicketLabel.setText("No Ticket was given");
+                }
+                else
+                {
+                    controller.removeUser(removeTicketTextField.getText().hashCode());
+                    informationRemoveTicketLabel.setText("Removed ticket");
+                }
+            }
+        });
+
+
+        /**
+         * @function overview of all the tickets that are active now
+         */
+        viewTicketsButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                namesOfTicketsOverviewLabel.setText(controller.getAllTickets().toString());
             }
         });
     }

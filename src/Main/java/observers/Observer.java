@@ -7,4 +7,5 @@ public interface  Observer extends PropertyChangeListener {
 
     @Override
     void propertyChange(PropertyChangeEvent evt);
+
 }

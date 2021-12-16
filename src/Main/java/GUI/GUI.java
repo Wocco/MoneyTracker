@@ -111,7 +111,7 @@ public class GUI {
                 String selectedTicket = (String) comboBoxAddTicket.getSelectedItem();
 
                 String splitEven = (String) comboBoxSplitEven.getSelectedItem();
-                int splitEvenOrUneven=-10;
+                int splitEvenOrUneven;
 
                 if (splitEven.equals("Split evenly"))
                 {
@@ -126,14 +126,12 @@ public class GUI {
                     splitEvenOrUneven = -1;
                 }
 
-                String userString = "";
+                String userString = namePayerField.getText()+":"+"-"+(parseDouble(PriceOfTicketField.getText()))+splitNamesField.getText();
 
                 if(splitNamesField!=null && splitEvenOrUneven==1)                                       //splitting even
                 {
                     String[] splitUsersfield = splitNamesField.getText().split(";");
                     if(splitEvenOrUneven==1){
-                        userString = namePayerField.getText()+":"+"-"+(parseDouble(PriceOfTicketField.getText())*(splitUsersfield.length/(splitUsersfield.length+1)))+";";
-                        Double price = parseDouble(PriceOfTicketField.getText())/(splitUsersfield.length+1);
                         for(String u : splitUsersfield)
                         {
                             userString = userString + u +":"+price+";";
@@ -146,13 +144,19 @@ public class GUI {
                     userString = namePayerField.getText();
                     userString = userString+splitNamesField.getText();
                 }
+                else
+                {
+                    userString = namePayerField.getText();
+                    userString=userString+":"+PriceOfTicketField.getText()+";";
+
+                }
 
 
 
                 switch (selectedTicket)
                 {
                     case "AirplaneTicket":
-                        controller.createAirplaneTicket(factory,descriptionField.getText(),userString,(parseInt(PriceOfTicketField.getText())),dt,splitEvenOrUneven); //create an airplane ticket
+                        controller.createTicket(factory,"AirplaneTicket",descriptionField.getText(),userString,(parseDouble(PriceOfTicketField.getText())),dt,splitEvenOrUneven); //create an airplane ticket
 
                 }
             }
@@ -242,6 +246,19 @@ public class GUI {
     }
 
 
+    public void updateUser(Controller controller)
+    {
+        //Update the user fields
+        ArrayList<String> allusers = controller.getUserNames();
+        userOverviewLabel.setText(allusers.toString());
+
+    }
+
+    public void updateTicket(Controller controller)
+    {
+        //update the tickets
+        namesOfTicketsOverviewLabel.setText(controller.getAllTickets().toString());
+    }
 
     /**
      * Initialize the gui

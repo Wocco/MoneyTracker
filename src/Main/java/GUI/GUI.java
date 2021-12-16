@@ -225,6 +225,10 @@ public class GUI {
         updateTable(controller);
     }
 
+    /**
+     * @// FIXME: 16/12/2021 
+     * @param controller
+     */
     private void updateTable(Controller controller){
         //int collumsToRemove = billTableOverview.getColumnCount();
         //for(int i = collumsToRemove-1;i>=0;i--){
@@ -250,6 +254,7 @@ public class GUI {
         DefaultTableModel model ;
         ArrayList= userString.split(";");
         String[][] tickets =  ticketString.split(";");
+
         billTableOverview = new JTable(users);
 
     }

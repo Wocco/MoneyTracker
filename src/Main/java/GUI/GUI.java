@@ -70,12 +70,12 @@ public class GUI {
     private JLabel explanationLabelAddTicket;
     private JLabel informationRemoveTicketLabel;
     private JButton viewTicketsButton;
-    private JLabel NameOfTicketsLabel;
-    private JLabel namesOfTicketsOverviewLabel;
+
     private JPanel userAddPanelSuccesOrNot;
     private JLabel userOverviewLabel;
     private JTable billTableOverview;
     private JPanel BillOverviewPanel;
+    private JTable tableOverviewTickets;
     private JPanel OverviewPanel;
     JDateChooser dateChooser = new JDateChooser();
     Calendar cld = Calendar.getInstance();
@@ -226,8 +226,26 @@ public class GUI {
         for(Ticket ticket : tickets){
             ticketText = ticketText + ticket.getDescription()+ ", ";
         }
-        namesOfTicketsOverviewLabel.setText(ticketText);
+
         updateTable(controller);
+
+        //update jtableof overview of the tickets
+        String[] columns = {"Description of ticket","Price"};
+        DefaultTableModel dtm = new DefaultTableModel(0, 0);
+        dtm.setColumnIdentifiers(columns);
+        tableOverviewTickets.setModel(dtm);
+        int howManytickets=0;
+        for(Ticket ticket : tickets){
+            String description = ticket.getDescription();
+            double value = ticket.getValue();
+            howManytickets++;
+            Object[] data = {description,value};
+            dtm.addRow(data);
+        }
+        tableOverviewTickets.setPreferredScrollableViewportSize(new Dimension(500,50));
+        tableOverviewTickets.setFillsViewportHeight(true);
+
+
     }
 
     /**

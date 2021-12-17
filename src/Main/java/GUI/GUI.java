@@ -63,7 +63,6 @@ public class GUI {
     private JButton allUsersButon;
     private JLabel overviewTicketsLabel;
     private JLabel overviewTicketsLabelShowhere;
-    private JButton refreshButtonOverviewTickets;
     private JLabel addPeopleSuccesOrNotLabel;
     private JLabel informationLabelRemove;
     private JButton removeTicketButton;
@@ -198,7 +197,7 @@ public class GUI {
                 }
                 else
                 {
-                    controller.removeUser(removeTicketTextField.getText().hashCode());
+                    controller.removeTicket(removeTicketTextField.getText().hashCode());
                     informationRemoveTicketLabel.setText("Removed ticket");
                 }
             }
@@ -284,6 +283,13 @@ public class GUI {
 
 
     }
+
+    /**
+     * @source https://stackoverflow.com/questions/2808535/round-a-double-to-2-decimal-places
+     * @param value Value you put in that you want to round
+     * @param places how many decimal numbers
+     * @return the rounded value
+     */
     public static double round(double value, int places) {
         if (places < 0) throw new IllegalArgumentException();
 

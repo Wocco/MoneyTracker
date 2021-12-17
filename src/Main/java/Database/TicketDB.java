@@ -32,7 +32,10 @@ public class TicketDB{
             System.out.println("Error: This description is the same as another ticket. Give another description to your ticket.");
         }
     }
-
+    public void removeTicket(Integer hashValue){
+        this.db.remove(hashValue);
+        change.firePropertyChange(null, null, hashValue);
+    }
     public ArrayList<Ticket> getAllTickets(){
         ArrayList<Ticket> allTickets = new ArrayList<>();
         for(Ticket ticket:db.values()){

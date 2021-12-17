@@ -62,6 +62,9 @@ public class Controller
         userDB.removeUser(hashvalue);
     }
 
+    public void removeTicket(Integer hashvalue){
+        ticketDB.removeTicket(hashvalue);
+    }
     public ArrayList<User> getUsers(){
         return userDB.getUsers();
     }

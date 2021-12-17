@@ -10,10 +10,10 @@ public class Ticket {
     private String description;
     private String purchaseDate;
     private int hashValue;
-    private HashMap<User, Integer> users;
-    private int value;
+    private HashMap<User, Double> users;
+    private double value;
     private boolean splitEvenly;
-    public Ticket(String description, HashMap<User, Integer> users, int value, String purchaseDate, boolean splitEvenly){
+    public Ticket(String description, HashMap<User, Double> users, double value, String purchaseDate, boolean splitEvenly){
         this.description = description;
         this.users = users;
         this.hashValue = description.hashCode();
@@ -28,7 +28,7 @@ public class Ticket {
 
     public int getHashValue(){return hashValue;}
 
-    public int getValue(){
+    public double getValue(){
         return value;
     }
 
@@ -40,7 +40,7 @@ public class Ticket {
         this.description = description;
     }
 
-    public void setValue(int value) {
+    public void setValue(double value) {
         this.value = value;
     }
 
@@ -52,7 +52,7 @@ public class Ticket {
         return splitEvenly;
     }
 
-    public void addUser(User user, Integer money){this.users.put(user,money);}
+    public void addUser(User user, Double money){this.users.put(user,money);}
 
-    public HashMap<User, Integer> getUsers(){return users;}
+    public HashMap<User, Double> getUsers(){return users;}
 }

@@ -24,8 +24,13 @@ public class TicketDB{
     }
 
     public void addTicket(Integer hashValue, Ticket ticket){
-        this.db.put(hashValue,ticket);
-        change.firePropertyChange(null,null,ticket);
+        if(db.get(ticket.getDescription().hashCode())==null) {
+            this.db.put(hashValue, ticket);
+            change.firePropertyChange(null, null, ticket);
+        }
+        else{
+            System.out.println("Error: This description is the same as another ticket. Give another description to your ticket.");
+        }
     }
 
     public ArrayList<Ticket> getAllTickets(){

@@ -40,13 +40,14 @@ public class UserDB {
         this.db.remove(hashValue);
     }
 
-    public ArrayList<String> getUserNames(){
-        ArrayList<String> userNames = new ArrayList<>();
+    public ArrayList<User> getUsers(){
+        ArrayList<User> users = new ArrayList<>();
         for(User user:db.values()){
-            userNames.add(user.getName());
+            users.add(user);
         }
-        return userNames;
+        return users;
     }
+
 
     private PropertyChangeSupport change = new PropertyChangeSupport(this);
     public void add(PropertyChangeListener pcl){

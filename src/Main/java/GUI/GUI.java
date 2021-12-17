@@ -230,7 +230,7 @@ public class GUI {
         updateTable(controller);
 
         //update jtableof overview of the tickets
-        String[] columns = {"Description of ticket","Price"};
+        String[] columns = {"Description of ticket","Price","Date of Purchase"};
         DefaultTableModel dtm = new DefaultTableModel(0, 0);
         dtm.setColumnIdentifiers(columns);
         tableOverviewTickets.setModel(dtm);
@@ -238,8 +238,9 @@ public class GUI {
         for(Ticket ticket : tickets){
             String description = ticket.getDescription();
             double value = ticket.getValue();
+            String date = ticket.getPurchaseDate();
             howManytickets++;
-            Object[] data = {description,value};
+            Object[] data = {description,value,date};
             dtm.addRow(data);
         }
         tableOverviewTickets.setPreferredScrollableViewportSize(new Dimension(500,50));

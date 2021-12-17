@@ -38,6 +38,7 @@ public class UserDB {
 
     public void removeUser(Integer hashValue){
         this.db.remove(hashValue);
+        change.firePropertyChange(null, null, hashValue);
     }
 
     public ArrayList<User> getUsers(){

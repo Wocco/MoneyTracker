@@ -1,5 +1,6 @@
 package GUI;
 
+import Bill.Bill;
 import Controller.Controller;
 import Tickets.Ticket;
 import Tickets.TicketFactory;
@@ -12,6 +13,7 @@ import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
 import javax.swing.table.TableColumnModel;
 import javax.swing.table.TableModel;
+import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.Array;
@@ -73,6 +75,8 @@ public class GUI {
     private JPanel userAddPanelSuccesOrNot;
     private JLabel userOverviewLabel;
     private JTable billTableOverview;
+    private JPanel BillOverviewPanel;
+    private JPanel OverviewPanel;
     JDateChooser dateChooser = new JDateChooser();
     Calendar cld = Calendar.getInstance();
 
@@ -104,6 +108,7 @@ public class GUI {
         //calender
         dateChooser.setDateFormatString("dd/MM/yyyy");
         CalenderPanel.add(dateChooser);
+
 
 
         /**
@@ -238,24 +243,31 @@ public class GUI {
         ArrayList<Ticket> tickets = controller.getAllTickets();
         ArrayList<String> userNames = new ArrayList();
         Integer howManyUsers = 0;
+
+        //DefaultTableModel model ;
+        //ArrayList= userString.split(";");
+        //String[][] tickets =  ticketString.split(";");
+
+
+        String[] columns = {"Names","Balance"};
+        DefaultTableModel dtm = new DefaultTableModel(0, 0);
+        dtm.setColumnIdentifiers(columns);
+        billTableOverview.setModel(dtm);
+
         for(User user : userobjects){
-             = userString+user.getName()+";";
+            String name = user.getName();
+            double balance = user.getMoneyBalance();
             howManyUsers++;
-        }
-        Integer howManyTickets = 0;
-        String ticketString = "";
-        for(Ticket ticket : tickets){
-            ticketString = ticketString+ticket.getDescription()+";";
-            howManyTickets++;
-        }
-        System.out.println(howManyUsers);
-        System.out.println(howManyTickets);
+            Object[] data = {name,balance};
+            dtm.addRow(data);
 
-        DefaultTableModel model ;
-        ArrayList= userString.split(";");
-        String[][] tickets =  ticketString.split(";");
+        }
+        billTableOverview.setPreferredScrollableViewportSize(new Dimension(500,50));
+        billTableOverview.setFillsViewportHeight(true);
 
-        billTableOverview = new JTable(users);
+
+
+
 
     }
 
@@ -270,6 +282,7 @@ public class GUI {
         frame.setDefaultCloseOperation(JFrame.EXIT_ON_CLOSE);
         frame.setSize(900,700);
         frame.setVisible(true);
+
     }
 
     private void createUIComponents() {

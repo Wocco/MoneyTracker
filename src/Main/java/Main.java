@@ -11,7 +11,10 @@ import observers.UserDbObserver;
 
 public class Main
 {
-
+    /**
+     * @function Main of the moneytrcker program
+     * @param args
+     */
     public static void main(String[] args)
     {
         Main main = new Main();
@@ -21,6 +24,9 @@ public class Main
     public Main() {
     }
 
+    /**
+     * @function runs the program
+     */
     public void run()
     {
         TicketDB ticketDB = new TicketDB();

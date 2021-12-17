@@ -185,7 +185,7 @@ public class GUI {
 
 
         /**
-         * Remove a ticket
+         * @function remove a ticket
          */
         removeTicketButton.addActionListener(new ActionListener() {
             @Override
@@ -206,7 +206,10 @@ public class GUI {
         
     }
 
-
+    /***
+     * @function Something in the user database changed so the gui needs to update all user related fields
+     * @param controller The controller is needed to access the userdatabase
+     */
     public void updateUser(Controller controller)
     {
         //Update the user fields
@@ -219,6 +222,10 @@ public class GUI {
         updateTable(controller);
     }
 
+    /**
+     * @function Something in the ticket database changed so the gui needs to update all fields related to ticket
+     * @param controller The controller is needed to access the ticketDatabase
+     */
     public void updateTicket(Controller controller)
     {
         //update the tickets
@@ -251,7 +258,7 @@ public class GUI {
     }
 
     /**
-     * @// FIXME: 16/12/2021 
+     * @function update the overview table of all the balances of the user
      * @param controller
      */
     private void updateTable(Controller controller){
@@ -298,8 +305,7 @@ public class GUI {
         return bd.doubleValue();
     }
     /**
-     * Initialize the gui
-     *
+     * @function Initialize the gui
      */
     public void app(GUI gui)
     {

@@ -17,6 +17,8 @@ import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.lang.reflect.Array;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
@@ -240,7 +242,7 @@ public class GUI {
             double value = ticket.getValue();
             String date = ticket.getPurchaseDate();
             howManytickets++;
-            Object[] data = {description,value,date};
+            Object[] data = {description,round(value,2),date};
             dtm.addRow(data);
         }
         tableOverviewTickets.setPreferredScrollableViewportSize(new Dimension(500,50));
@@ -254,18 +256,11 @@ public class GUI {
      * @param controller
      */
     private void updateTable(Controller controller){
-        //int collumsToRemove = billTableOverview.getColumnCount();
-        //for(int i = collumsToRemove-1;i>=0;i--){
-        //    billTableOverview.removeColumn(billTableOverview.getColumn(i));
-        //}
+
         ArrayList<User> userobjects = controller.getUsers();
         ArrayList<Ticket> tickets = controller.getAllTickets();
         ArrayList<String> userNames = new ArrayList();
         Integer howManyUsers = 0;
-
-        //DefaultTableModel model ;
-        //ArrayList= userString.split(";");
-        //String[][] tickets =  ticketString.split(";");
 
 
         String[] columns = {"Names","Balance"};
@@ -277,7 +272,7 @@ public class GUI {
             String name = user.getName();
             double balance = user.getMoneyBalance();
             howManyUsers++;
-            Object[] data = {name,balance};
+            Object[] data = {name,round(balance,2)};
             dtm.addRow(data);
 
         }
@@ -289,7 +284,13 @@ public class GUI {
 
 
     }
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
 
+        BigDecimal bd = BigDecimal.valueOf(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
     /**
      * Initialize the gui
      *

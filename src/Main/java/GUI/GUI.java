@@ -198,7 +198,7 @@ public class GUI {
                 else
                 {
                     controller.removeTicket(removeTicketTextField.getText().hashCode());
-                    informationRemoveTicketLabel.setText("Removed ticket");
+                    informationRemoveTicketLabel.setText("Ticket removed");
                 }
             }
         });

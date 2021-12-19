@@ -32,7 +32,7 @@ public class TicketDB{
 
     /**
      * @function add a ticket to the database, when the ticket with the same description is already present in the database it doesn't get added
-     * @param hashValue hashvalue of the to be added ticket
+     * @param hashValue hashvalue of the ticket
      * @param ticket the to be added ticket
      */
     public void addTicket(Integer hashValue, Ticket ticket){
@@ -64,6 +64,15 @@ public class TicketDB{
             allTickets.add(ticket);
         }
         return allTickets;
+    }
+
+    /**
+     * @function get a certain ticket from the database
+     * @param hashvalue of the  ticket
+     * @return Ticket
+     */
+    public Ticket getTicket(Integer hashvalue){
+        return this.db.get(hashvalue);
     }
 
     /**

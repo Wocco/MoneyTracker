@@ -44,6 +44,7 @@ public class Controller
             for(int i=1; i<addedUsers;i++){
                 userString = userString+splittedUsers[i]+":"+(value/addedUsers)+";";
             }
+            System.out.println(userString);
         }else {
             String[] otherUsers = users.split(":;")[1].split(";");
             Double firstUserValue = 0.0;
@@ -52,6 +53,7 @@ public class Controller
             }
             String firstUser = users.split(":;")[0]+":"+(-firstUserValue)+";";
             userString = firstUser + users.split(":;")[1];
+            System.out.println(userString);
         }
         HashMap<User, Double> userObjects = stringUsersToObjects(userString);
         ticket = ticketFactory.makeTicket(ticketType, description, userObjects, value, purchaseDate, splitEvenly);
@@ -89,6 +91,17 @@ public class Controller
      * @param hashvalue hash of the ticket
      */
     public void removeTicket(Integer hashvalue){
+        ArrayList<User> users = userDB.getUsers();
+        Ticket ticket = ticketDB.getTicket(hashvalue);
+        HashMap<User, Double> userWithMoney = ticket.getUsers();
+        for(User user : users ){
+            if(user.getTickets().contains(hashvalue)){
+                Double userMoneyBalance = user.getMoneyBalance();
+                Double moneyOfTicket = userWithMoney.get(user);
+                user.setMoneyBalance(userMoneyBalance-moneyOfTicket);
+                user.removeTicket(hashvalue);
+            }
+        }
         ticketDB.removeTicket(hashvalue);
     }
 

@@ -35,6 +35,19 @@ public class User {
     }
 
     /**
+     * @function remove ticket from user
+     * @param hashvalueOfTicket
+     */
+    public void removeTicket(Integer hashvalueOfTicket){
+        if(tickets.contains(hashvalueOfTicket)){
+            tickets.remove(hashvalueOfTicket);
+        }else{
+            System.out.println("An error occured! The ticket couldn't be found in the user object.");
+        }
+    }
+
+
+    /**
      * @function get the balance of this user
      * @return the money balance (double)
      */

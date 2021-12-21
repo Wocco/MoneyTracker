@@ -96,10 +96,10 @@ public class Controller
         HashMap<User, Double> userWithMoney = ticket.getUsers();
         for(User user : users ){
             if(user.getTickets().contains(hashvalue)){
-                Double userMoneyBalance = user.getMoneyBalance();
                 Double moneyOfTicket = userWithMoney.get(user);
-                user.setMoneyBalance(userMoneyBalance-moneyOfTicket);
+                user.setMoneyBalance(-moneyOfTicket);
                 user.removeTicket(hashvalue);
+                user.printUser();
             }
         }
         ticketDB.removeTicket(hashvalue);

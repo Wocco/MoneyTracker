@@ -78,4 +78,8 @@ public class User {
     public void setName(String name){
         this.name = name;
     }
+
+    public void printUser(){
+        System.out.println(getName()+ " has balance: "+getMoneyBalance()+ " with tickets: "+getTickets());
+    }
 }

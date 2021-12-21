@@ -27,5 +27,6 @@ public class TicketDbObserver implements Observer{
     public void propertyChange(PropertyChangeEvent evt)
     {
         gui.updateTicket(controller);
+        gui.updateUser(controller);
     }
 }

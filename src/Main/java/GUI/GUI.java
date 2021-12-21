@@ -104,7 +104,6 @@ public class GUI {
         comboBoxAddTicket.addItem("RestaurantTicket");
         //combobox split evenly or not
         comboBoxSplitEven.addItem("Split evenly");
-        comboBoxSplitEven.addItem("Do not split");
         comboBoxSplitEven.addItem("Split unevenly");
         //calender
         dateChooser.setDateFormatString("dd/MM/yyyy");
@@ -254,7 +253,6 @@ public class GUI {
         tableOverviewTickets.setPreferredScrollableViewportSize(new Dimension(500,50));
         tableOverviewTickets.setFillsViewportHeight(true);
 
-
     }
 
     /**
@@ -284,10 +282,6 @@ public class GUI {
         }
         billTableOverview.setPreferredScrollableViewportSize(new Dimension(500,50));
         billTableOverview.setFillsViewportHeight(true);
-
-
-
-
 
     }
 

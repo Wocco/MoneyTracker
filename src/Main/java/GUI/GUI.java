@@ -136,6 +136,7 @@ public class GUI {
                 }
 
                 String userString = namePayerField.getText()+":;"+splitNamesField.getText();
+                System.out.println(userString);
                 controller.createTicket(selectedTicket,descriptionField.getText(),userString,(parseDouble(PriceOfTicketField.getText())),dt,splitEvenOrUneven); //create an airplane ticket
             }
         });

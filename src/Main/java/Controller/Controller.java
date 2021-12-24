@@ -121,6 +121,7 @@ public class Controller
         ArrayList<String> userNotFound = new ArrayList<>();
         for(String u : splitUsersAndMoney){
             String splitUser = u.split(":")[0];
+            System.out.println(splitUser);
             Double splitMoney = parseDouble(u.split(":")[1]);
             User userTemp = userDB.getUser(splitUser.hashCode());
             if(userTemp != null){

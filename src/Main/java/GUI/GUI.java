@@ -1,6 +1,5 @@
 package GUI;
 
-import Bill.Bill;
 import Controller.Controller;
 import Tickets.Ticket;
 import Tickets.TicketFactory;

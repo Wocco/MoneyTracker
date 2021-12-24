@@ -3,6 +3,9 @@ package Controller;
 
 import Database.TicketDB;
 import Database.UserDB;
+import GUI.DarkTheme;
+import GUI.LightTheme;
+import GUI.ThemeContext;
 import Tickets.Ticket;
 import Tickets.TicketFactory;
 import User.User;
@@ -13,6 +16,7 @@ import static java.lang.Double.parseDouble;
 
 public class Controller
 {
+    private ThemeContext themeContext = new ThemeContext();
     private TicketDB ticketDB;
     private UserDB userDB;
     private TicketFactory ticketFactory;
@@ -44,7 +48,6 @@ public class Controller
             for(int i=1; i<addedUsers;i++){
                 userString = userString+splittedUsers[i]+":"+(value/addedUsers)+";";
             }
-            System.out.println(userString);
         }else {
             String[] otherUsers = users.split(":;")[1].split(";");
             Double firstUserValue = 0.0;
@@ -53,7 +56,6 @@ public class Controller
             }
             String firstUser = users.split(":;")[0]+":"+(-firstUserValue)+";";
             userString = firstUser + users.split(":;")[1];
-            System.out.println(userString);
         }
         HashMap<User, Double> userObjects = stringUsersToObjects(userString);
         ticket = ticketFactory.makeTicket(ticketType, description, userObjects, value, purchaseDate, splitEvenly);
@@ -121,7 +123,6 @@ public class Controller
         ArrayList<String> userNotFound = new ArrayList<>();
         for(String u : splitUsersAndMoney){
             String splitUser = u.split(":")[0];
-            System.out.println(splitUser);
             Double splitMoney = parseDouble(u.split(":")[1]);
             User userTemp = userDB.getUser(splitUser.hashCode());
             if(userTemp != null){
@@ -134,5 +135,15 @@ public class Controller
             System.out.println("Database error! Users that couldn't be found: " + userNotFound);
         }
         return userObjects;
+    }
+
+    public void setTheme(Boolean light){
+        if(light){
+            LightTheme lightTheme = new LightTheme();
+            lightTheme.changeTheme(themeContext);
+        }else{
+            DarkTheme darkTheme = new DarkTheme();
+            darkTheme.changeTheme(themeContext);
+        }
     }
 }

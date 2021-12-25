@@ -1,31 +1,22 @@
 package GUI;
-
 import Controller.Controller;
 import Tickets.Ticket;
 import Tickets.TicketFactory;
 import User.User;
 import com.toedter.calendar.JDateChooser;
 
-import javax.naming.ldap.Control;
 import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
-import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
 import java.math.BigDecimal;
 import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Vector;
 
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
@@ -76,6 +67,8 @@ public class GUI {
     private JTable billTableOverview;
     private JPanel BillOverviewPanel;
     private JTable tableOverviewTickets;
+    private JButton LightThemeButton;
+    private JButton DarkThemeButton;
     private JPanel OverviewPanel;
     JDateChooser dateChooser = new JDateChooser();
     Calendar cld = Calendar.getInstance();
@@ -90,6 +83,8 @@ public class GUI {
 
     public GUI(Controller controller)
     {
+
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy");
         LocalDateTime now = LocalDateTime.now();
 
@@ -201,7 +196,26 @@ public class GUI {
             }
         });
 
-        
+        /**
+         * @function change the theme of the gui
+         */
+        LightThemeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.setTheme(Boolean.TRUE);
+                SwingUtilities.updateComponentTreeUI(MainPanel);
+            }
+        });
+        /**
+         * @function change the theme of the gui to dark
+         */
+        DarkThemeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.setTheme(Boolean.FALSE);
+                SwingUtilities.updateComponentTreeUI(MainPanel);
+            }
+        });
     }
 
     /***
@@ -308,7 +322,11 @@ public class GUI {
         frame.setSize(900,700);
         frame.setVisible(true);
 
+
+
+
     }
+
 
     private void createUIComponents() {
         // TODO: place custom component creation code here

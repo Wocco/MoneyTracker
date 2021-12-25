@@ -3,8 +3,8 @@ package GUI;
 public class ThemeContext {
     private Theme theme;
 
-    public ThemeContext(){
-        theme = null;
+    public ThemeContext() {
+        this.theme = null;
     }
 
     public void setTheme(Theme theme){
@@ -12,6 +12,6 @@ public class ThemeContext {
     }
 
     public Theme getTheme(){
-        return theme;
+         return this.theme;
     }
 }

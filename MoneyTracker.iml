@@ -11,6 +11,32 @@
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="jar://$MODULE_DIR$/src/Main/java/Themes/syntheticaDark.jar!/" />
+        </CLASSES>
+        <JAVADOC />
+        <SOURCES />
+      </library>
+    </orderEntry>
+    <orderEntry type="module-library">
+      <library>
+        <CLASSES>
+          <root url="file://$MODULE_DIR$/../../synthetica_2.33.0_eval" />
+        </CLASSES>
+        <JAVADOC>
+          <root url="file://$MODULE_DIR$/../../synthetica_2.33.0_eval/api" />
+        </JAVADOC>
+        <SOURCES>
+          <root url="file://$MODULE_DIR$/../../synthetica_2.33.0_eval" />
+        </SOURCES>
+        <jarDirectory url="file://$MODULE_DIR$/../../synthetica_2.33.0_eval" recursive="false" />
+        <jarDirectory url="file://$MODULE_DIR$/../../synthetica_2.33.0_eval" recursive="false" type="SOURCES" />
+      </library>
+    </orderEntry>
     <orderEntry type="library" name="Maven: com.toedter:jcalendar:1.4" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.griffon.plugins:griffon-lookandfeel-synthetica:2.0.0" level="project" />
+    <orderEntry type="library" name="Maven: org.codehaus.griffon.plugins:griffon-lookandfeel-core:2.0.0" level="project" />
   </component>
 </module>

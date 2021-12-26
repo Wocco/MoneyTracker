@@ -1,30 +1,22 @@
 package GUI;
-
-import Bill.Bill;
 import Controller.Controller;
 import Tickets.Ticket;
 import Tickets.TicketFactory;
 import User.User;
 import com.toedter.calendar.JDateChooser;
 
-import javax.naming.ldap.Control;
 import javax.swing.*;
-import javax.swing.table.AbstractTableModel;
 import javax.swing.table.DefaultTableModel;
-import javax.swing.table.TableColumnModel;
-import javax.swing.table.TableModel;
 import java.awt.*;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
-import java.lang.reflect.Array;
+import java.math.BigDecimal;
+import java.math.RoundingMode;
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.Calendar;
-import java.util.Date;
-import java.util.Vector;
 
 import static java.lang.Double.parseDouble;
 import static java.lang.Integer.parseInt;
@@ -61,7 +53,6 @@ public class GUI {
     private JButton allUsersButon;
     private JLabel overviewTicketsLabel;
     private JLabel overviewTicketsLabelShowhere;
-    private JButton refreshButtonOverviewTickets;
     private JLabel addPeopleSuccesOrNotLabel;
     private JLabel informationLabelRemove;
     private JButton removeTicketButton;
@@ -76,6 +67,8 @@ public class GUI {
     private JTable billTableOverview;
     private JPanel BillOverviewPanel;
     private JTable tableOverviewTickets;
+    private JButton LightThemeButton;
+    private JButton DarkThemeButton;
     private JPanel OverviewPanel;
     JDateChooser dateChooser = new JDateChooser();
     Calendar cld = Calendar.getInstance();
@@ -90,6 +83,8 @@ public class GUI {
 
     public GUI(Controller controller)
     {
+
+
         DateTimeFormatter formatter = DateTimeFormatter.ofPattern("MMMM d, yyyy");
         LocalDateTime now = LocalDateTime.now();
 
@@ -103,7 +98,6 @@ public class GUI {
         comboBoxAddTicket.addItem("RestaurantTicket");
         //combobox split evenly or not
         comboBoxSplitEven.addItem("Split evenly");
-        comboBoxSplitEven.addItem("Do not split");
         comboBoxSplitEven.addItem("Split unevenly");
         //calender
         dateChooser.setDateFormatString("dd/MM/yyyy");
@@ -184,7 +178,7 @@ public class GUI {
 
 
         /**
-         * Remove a ticket
+         * @function remove a ticket
          */
         removeTicketButton.addActionListener(new ActionListener() {
             @Override
@@ -196,16 +190,38 @@ public class GUI {
                 }
                 else
                 {
-                    controller.removeUser(removeTicketTextField.getText().hashCode());
-                    informationRemoveTicketLabel.setText("Removed ticket");
+                    controller.removeTicket(removeTicketTextField.getText().hashCode());
+                    informationRemoveTicketLabel.setText("Ticket removed");
                 }
             }
         });
 
-        
+        /**
+         * @function change the theme of the gui
+         */
+        LightThemeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.setTheme(Boolean.TRUE);
+                SwingUtilities.updateComponentTreeUI(MainPanel);
+            }
+        });
+        /**
+         * @function change the theme of the gui to dark
+         */
+        DarkThemeButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e) {
+                controller.setTheme(Boolean.FALSE);
+                SwingUtilities.updateComponentTreeUI(MainPanel);
+            }
+        });
     }
 
-
+    /***
+     * @function Something in the user database changed so the gui needs to update all user related fields
+     * @param controller The controller is needed to access the userdatabase
+     */
     public void updateUser(Controller controller)
     {
         //Update the user fields
@@ -218,6 +234,10 @@ public class GUI {
         updateTable(controller);
     }
 
+    /**
+     * @function Something in the ticket database changed so the gui needs to update all fields related to ticket
+     * @param controller The controller is needed to access the ticketDatabase
+     */
     public void updateTicket(Controller controller)
     {
         //update the tickets
@@ -230,7 +250,7 @@ public class GUI {
         updateTable(controller);
 
         //update jtableof overview of the tickets
-        String[] columns = {"Description of ticket","Price"};
+        String[] columns = {"Description of ticket","Price","Date of Purchase"};
         DefaultTableModel dtm = new DefaultTableModel(0, 0);
         dtm.setColumnIdentifiers(columns);
         tableOverviewTickets.setModel(dtm);
@@ -238,33 +258,26 @@ public class GUI {
         for(Ticket ticket : tickets){
             String description = ticket.getDescription();
             double value = ticket.getValue();
+            String date = ticket.getPurchaseDate();
             howManytickets++;
-            Object[] data = {description,value};
+            Object[] data = {description,round(value,2),date};
             dtm.addRow(data);
         }
         tableOverviewTickets.setPreferredScrollableViewportSize(new Dimension(500,50));
         tableOverviewTickets.setFillsViewportHeight(true);
 
-
     }
 
     /**
-     * @// FIXME: 16/12/2021 
+     * @function update the overview table of all the balances of the user
      * @param controller
      */
     private void updateTable(Controller controller){
-        //int collumsToRemove = billTableOverview.getColumnCount();
-        //for(int i = collumsToRemove-1;i>=0;i--){
-        //    billTableOverview.removeColumn(billTableOverview.getColumn(i));
-        //}
+
         ArrayList<User> userobjects = controller.getUsers();
         ArrayList<Ticket> tickets = controller.getAllTickets();
         ArrayList<String> userNames = new ArrayList();
         Integer howManyUsers = 0;
-
-        //DefaultTableModel model ;
-        //ArrayList= userString.split(";");
-        //String[][] tickets =  ticketString.split(";");
 
 
         String[] columns = {"Names","Balance"};
@@ -276,22 +289,30 @@ public class GUI {
             String name = user.getName();
             double balance = user.getMoneyBalance();
             howManyUsers++;
-            Object[] data = {name,balance};
+            Object[] data = {name,round(balance,2)};
             dtm.addRow(data);
 
         }
         billTableOverview.setPreferredScrollableViewportSize(new Dimension(500,50));
         billTableOverview.setFillsViewportHeight(true);
 
-
-
-
-
     }
 
     /**
-     * Initialize the gui
-     *
+     * @source https://stackoverflow.com/questions/2808535/round-a-double-to-2-decimal-places
+     * @param value Value you put in that you want to round
+     * @param places how many decimal numbers
+     * @return the rounded value
+     */
+    public static double round(double value, int places) {
+        if (places < 0) throw new IllegalArgumentException();
+
+        BigDecimal bd = BigDecimal.valueOf(value);
+        bd = bd.setScale(places, RoundingMode.HALF_UP);
+        return bd.doubleValue();
+    }
+    /**
+     * @function Initialize the gui
      */
     public void app(GUI gui)
     {
@@ -301,7 +322,11 @@ public class GUI {
         frame.setSize(900,700);
         frame.setVisible(true);
 
+
+
+
     }
+
 
     private void createUIComponents() {
         // TODO: place custom component creation code here

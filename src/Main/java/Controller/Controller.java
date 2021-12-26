@@ -3,6 +3,9 @@ package Controller;
 
 import Database.TicketDB;
 import Database.UserDB;
+import GUI.DarkTheme;
+import GUI.LightTheme;
+import GUI.ThemeContext;
 import Tickets.Ticket;
 import Tickets.TicketFactory;
 import User.User;
@@ -13,6 +16,7 @@ import static java.lang.Double.parseDouble;
 
 public class Controller
 {
+    private ThemeContext themeContext = new ThemeContext();
     private TicketDB ticketDB;
     private UserDB userDB;
     private TicketFactory ticketFactory;
@@ -22,6 +26,16 @@ public class Controller
         this.ticketFactory = ticketFactory;
     }
 
+    /**
+     * @function create a ticket
+     * @param ticketType can be an Airplaneticket,concertticket,...
+     * @param description name of the ticket string
+     * @param users users related to the ticket user
+     * @param value price of the ticket double
+     * @param purchaseDate Date of the purchase
+     * @param splitEvenly split evenly or unevenly Boolean
+     * @return
+     */
     public Ticket createTicket(String ticketType, String description, String users, double value, String purchaseDate, boolean splitEvenly)
     {
         Ticket ticket = null;
@@ -49,23 +63,60 @@ public class Controller
         return ticket;
     }
 
+    /**
+     * @function get all the tickets from the ticketDB
+     * @return Arraylist of all the tickets
+     */
     public ArrayList<Ticket> getAllTickets(){
         return ticketDB.getAllTickets();
     }
 
+    /**
+     * @function add a user to the database
+     * @param name name of the user
+     */
     public void addUser(String name){
         User newUser = new User(name);
         userDB.addUser(name.hashCode(), newUser);
     }
 
+    /**
+     * @function remove a user from the database
+     * @param hashvalue hash of the user
+     */
     public void removeUser(Integer hashvalue){
         userDB.removeUser(hashvalue);
     }
 
+    /**
+     * @function remove a ticket from the database
+     * @param hashvalue hash of the ticket
+     */
+    public void removeTicket(Integer hashvalue){
+        ArrayList<User> users = userDB.getUsers();
+        Ticket ticket = ticketDB.getTicket(hashvalue);
+        HashMap<User, Double> userWithMoney = ticket.getUsers();
+        for(User user : users ){
+            if(user.getTickets().contains(hashvalue)){
+                Double moneyOfTicket = userWithMoney.get(user);
+                user.setMoneyBalance(-moneyOfTicket);
+                user.removeTicket(hashvalue);
+                user.printUser();
+            }
+        }
+        ticketDB.removeTicket(hashvalue);
+    }
+
+    /**
+     * @function get all the users
+     * @return an arraylist with all the users
+     */
     public ArrayList<User> getUsers(){
         return userDB.getUsers();
     }
-
+    /***
+     * @function String users to object
+     */
     private HashMap<User, Double> stringUsersToObjects(String users){
         String[] splitUsersAndMoney = users.split(";");
         HashMap<User, Double> userObjects = new HashMap<>();
@@ -84,5 +135,15 @@ public class Controller
             System.out.println("Database error! Users that couldn't be found: " + userNotFound);
         }
         return userObjects;
+    }
+
+    public void setTheme(Boolean light){
+        if(light){
+            LightTheme lightTheme = new LightTheme();
+            lightTheme.changeTheme(themeContext);
+        }else{
+            DarkTheme darkTheme = new DarkTheme();
+            darkTheme.changeTheme(themeContext);
+        }
     }
 }

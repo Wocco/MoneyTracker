@@ -4,6 +4,11 @@ import javax.swing.*;
 import java.awt.*;
 
 public class DarkTheme implements Theme {
+    /**
+     * @function change to dark theme
+     * @source https://stackoverflow.com/questions/36128291/how-to-make-a-swing-application-have-dark-nimbus-theme-netbeans
+     * @param themeContext
+     */
     public void changeTheme(ThemeContext themeContext) {
         themeContext.setTheme(this);
 

@@ -2,6 +2,9 @@ package GUI;
 
 import javax.swing.*;
 
+/**
+ * @function change to light theme
+ */
 public class LightTheme implements Theme{
     public void changeTheme(ThemeContext themeContext){
         themeContext.setTheme(this);

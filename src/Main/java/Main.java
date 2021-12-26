@@ -35,16 +35,7 @@ public class Main
         UserDB userDB = new UserDB();
         TicketFactory ticketFactory = new TicketFactory();
         Controller controller = new Controller(ticketDB,userDB, ticketFactory);
-        try {
-            for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-                if ("Nimbus".equals(info.getName())) {
-                    UIManager.setLookAndFeel(info.getClassName());
-                    break;
-                }
-            }
-        } catch (Exception e) {
-            // If Nimbus is not available, you can set the GUI to another look and feel.
-        }
+
         GUI gui = new GUI(controller);
         //Making the observers observing the databases
         Observer userDBObserver = new UserDbObserver(gui,controller);

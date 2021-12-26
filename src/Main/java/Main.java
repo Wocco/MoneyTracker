@@ -31,8 +31,8 @@ public class Main
      */
     public void run()
     {
-        TicketDB ticketDB = new TicketDB();
-        UserDB userDB = new UserDB();
+        TicketDB ticketDB = TicketDB.getInstance();
+        UserDB userDB = UserDB.getInstance();
         TicketFactory ticketFactory = new TicketFactory();
         Controller controller = new Controller(ticketDB,userDB, ticketFactory);
 

@@ -9,13 +9,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class UserDB {
-    private static UserDB instance;
+    private static UserDB instance = new UserDB();
     private final HashMap<Integer, User> db;
 
     /**
      * @function constructor of the User database
      */
-    public UserDB(){
+    private UserDB(){
         this.db = new HashMap();
     }
 

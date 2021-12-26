@@ -9,13 +9,13 @@ import java.util.ArrayList;
 import java.util.HashMap;
 
 public class TicketDB{
-    private static TicketDB instance;
+    private static TicketDB instance = new TicketDB();
     private final HashMap<Integer, Ticket> db;
 
     /**
      * @function contstructor of the ticket database
      */
-    public TicketDB(){
+    private TicketDB(){
         this.db = new HashMap();
     }
 

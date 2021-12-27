@@ -49,9 +49,13 @@ public class TicketDB{
      * @function remove a ticket from the database
      * @param hashValue hash of the to be deleted ticekt
      */
-    public void removeTicket(Integer hashValue){
-        this.db.remove(hashValue);
-        change.firePropertyChange(null, null, hashValue);
+    public Ticket removeTicket(Integer hashValue){
+        Ticket ticket = this.db.get(hashValue);
+        if(ticket!=null) {
+            this.db.remove(hashValue);
+            change.firePropertyChange(null, null, hashValue);
+        }
+        return ticket;
     }
 
     /**

@@ -100,11 +100,14 @@ public class Controller
             if(user.getTickets().contains(hashvalue)){
                 Double moneyOfTicket = userWithMoney.get(user);
                 user.setMoneyBalance(-moneyOfTicket);
+
                 user.removeTicket(hashvalue);
                 user.printUser();
             }
         }
-        ticketDB.removeTicket(hashvalue);
+        if(ticketDB.removeTicket(hashvalue)==null){
+            System.out.println("This ticket doesn't exist.");
+        }
     }
 
     /**
@@ -114,6 +117,21 @@ public class Controller
     public ArrayList<User> getUsers(){
         return userDB.getUsers();
     }
+
+    /**
+     * @function Give money back to a user.
+     */
+    public void payBack(String user1, String user2, Double amount){
+        User userr1 = userDB.getUser(user1.hashCode());
+        User userr2 = userDB.getUser(user2.hashCode());
+        if(userr1!=null && userr2!=null){
+            userr1.setMoneyBalance(-amount);
+            userr2.setMoneyBalance(amount);
+        }else {
+            System.out.println("One of the users doesn't exist.");
+        }
+    }
+
     /***
      * @function String users to object
      */

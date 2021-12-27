@@ -69,6 +69,13 @@ public class GUI {
     private JTable tableOverviewTickets;
     private JButton LightThemeButton;
     private JButton DarkThemeButton;
+    private JTextField PersonPayingField;
+    private JTextField PersonRecievingField;
+    private JLabel Arrow;
+    private JButton PayButton;
+    private JTextField AmountField;
+    private JLabel AmountLabel;
+    private JLabel TransferLabel;
     private JPanel OverviewPanel;
     JDateChooser dateChooser = new JDateChooser();
     Calendar cld = Calendar.getInstance();
@@ -143,7 +150,7 @@ public class GUI {
             @Override
             public void actionPerformed(ActionEvent e)
             {
-                if(userNameAddField.getText().equals(null))
+                if(userNameAddField.getText().length()==0)
                 {
                     System.out.println("No value added because no name was given");
                     addPeopleSuccesOrNotLabel.setText("No value added because no name was given");
@@ -214,6 +221,40 @@ public class GUI {
             public void actionPerformed(ActionEvent e) {
                 controller.setTheme(Boolean.FALSE);
                 SwingUtilities.updateComponentTreeUI(MainPanel);
+            }
+        });
+        /***
+         * @function transfer an amount of money to another person
+         */
+        PayButton.addActionListener(new ActionListener() {
+            @Override
+            public void actionPerformed(ActionEvent e)
+            {
+                if(PersonPayingField.getText().length()==0)
+                {
+                    System.out.println("No value was given for The person paying");
+                    TransferLabel.setText("No value was given for The person paying");
+                    return;
+                }
+                if(PersonRecievingField.getText().length()==0)
+                {
+                    System.out.println("No value was given for the person recieving");
+                    TransferLabel.setText("No value was given for The person Recieving");
+                    return;
+                }
+                if(AmountField.getText().length()==0)
+                {
+                    System.out.println("No value was given for the amount");
+                    TransferLabel.setText("No value was given for the amount");
+                    return;
+                }
+                String personPaying = PersonPayingField.getText();
+                String personRecieving = PersonRecievingField.getText();
+                Double amountToTransfer = parseDouble(AmountField.getText());
+                controller.payBack(personPaying,personRecieving,amountToTransfer);
+                updateTable(controller);
+                TransferLabel.setText("Money transferred");
+
             }
         });
     }

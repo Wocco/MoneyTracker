@@ -1,7 +1,6 @@
 package GUI;
 import Controller.Controller;
 import Tickets.Ticket;
-import Tickets.TicketFactory;
 import User.User;
 import com.toedter.calendar.JDateChooser;
 
@@ -81,7 +80,7 @@ public class GUI {
     Calendar cld = Calendar.getInstance();
 
     private ModuleLayer.Controller controller;
-    private TicketFactory factory;
+
 
 
     /**

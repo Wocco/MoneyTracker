@@ -40,9 +40,10 @@ public class Controller
     {
         Ticket ticket = null;
         String userString = "";
+        int addedUsers = 0;
         if(splitEvenly) {
             String[] splittedUsers = users.split(";");
-            int addedUsers = splittedUsers.length;
+            addedUsers = splittedUsers.length;
             userString = splittedUsers[0]+(-(value*(addedUsers-1))/addedUsers)+";";
 
             for(int i=1; i<addedUsers;i++){
@@ -56,11 +57,16 @@ public class Controller
             }
             String firstUser = users.split(":;")[0]+":"+(-firstUserValue)+";";
             userString = firstUser + users.split(":;")[1];
+            addedUsers = userString.length();
         }
         HashMap<User, Double> userObjects = stringUsersToObjects(userString);
-        ticket = ticketFactory.makeTicket(ticketType, description, userObjects, value, purchaseDate, splitEvenly);
-        ticketDB.addTicket(description.hashCode(),ticket);
-        return ticket;
+        if(userObjects.size()==addedUsers) {
+            ticket = ticketFactory.makeTicket(ticketType, description, userObjects, value, purchaseDate, splitEvenly);
+            ticketDB.addTicket(description.hashCode(), ticket);
+            return ticket;
+        }else{
+            return null;
+        }
     }
 
     /**
